@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
     },
     logo: {
-        width: 40,
-        height: 40,
+        width: 80,
+        height: 80,
         marginRight: 10,
     },
     headerTitle: {

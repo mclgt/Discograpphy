@@ -10,7 +10,7 @@ const AddScreen=({})=>{
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
-                <Image source={require('./assets/icon.png')} style={styles.logo} />
+                <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
             <View style={styles.addScreenBody}>

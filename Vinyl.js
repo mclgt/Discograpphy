@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Style.js';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
 
 function Vinyl({ title, description, image }) {
     return (
