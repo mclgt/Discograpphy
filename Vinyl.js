@@ -1,0 +1,25 @@
+import React from 'react';
+import styles from './Style.js';
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+
+function Vinyl({ title, description, image }) {
+    return (
+        <View style={styles.container} >
+            <Image source={{ uri: image }} style={styles.image} />
+            <View style={styles.info}>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.description}>{description}</Text>
+                <View style={styles.actions}>
+                    <TouchableOpacity style={styles.bottone} onPress={() => console.log('Click!')}>
+                        <Text style={styles.testoBottone}>More</Text>
+                        <Ionicons name="trash-outline" size={32} color="#ff3131" />
+                    </TouchableOpacity>
+                </View>
+            </View>
+         </View>
+    );
+}
+
+export default Vinyl;
