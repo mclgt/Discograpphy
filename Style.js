@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         marginTop:20,
-        backgroundColor: '#fff',
+        backgroundColor: '#f1f1f1',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
     },
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     minorTitle: {
-        fontSize: 12,
+        fontSize: 18,
         fontWeight: 'bold',
         color:'#333'
     },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
     },
     image: {
-        width: '100%',
+        width:'100%',
         height: 200,
         borderRadius: 10,
         marginBottom: 10,
