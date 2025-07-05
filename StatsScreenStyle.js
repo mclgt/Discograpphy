@@ -24,5 +24,49 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         fontStyle: 'italic',
     },
+    titolominore:{
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    },
+    testo:{
+        fontSize: 18,
+        fontWeight: 'bold',
+        color:'#333',
+        textAlign:'center',
+    },
+    goBackButton: {
+        padding: 10,
+        backgroundColor: '#ff3131',
+        borderRadius: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+        marginLeft: 'auto',
+    },
+    congratsbox:
+    {
+        flexDirection: 'column',
+        alignItems:'center',
+        justifyContent:'center',
+        padding: 10,
+        width: 200,              
+        height: 200,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        marginVertical: 10,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+    },
+    riga:
+    {
+        flexDirection: 'row',
+        justifyContent:'flex-start',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    }
 });
 export default styles;
