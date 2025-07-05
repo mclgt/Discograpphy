@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
+        marginLeft: 'auto',
     },
     modifyButton: {
         padding: 10,

@@ -18,13 +18,9 @@ const HomeScreen=({})=>{
                 <Ionicons name='musical-note-outline' size={24} color='#ff3131' />
             </View>
             <ScrollView horizontal={true}>
-            <View style={styles.row}>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
                     <Vinyl title='Back to black' description='Album di Amy WhineHouse' image='https://upload.wikimedia.org/wikipedia/en/6/67/Amy_Winehouse_-_Back_to_Black_%28album%29.png'></Vinyl>
-            </View>
-            <View style={styles.row}>
                     <Vinyl title='Back to black' description='Album di Amy WhineHouse' image='https://upload.wikimedia.org/wikipedia/en/6/67/Amy_Winehouse_-_Back_to_Black_%28album%29.png'></Vinyl>
-            </View>
-            <View style={styles.row}>
                     <Vinyl title='Back to black' description='Album di Amy WhineHouse' image='https://upload.wikimedia.org/wikipedia/en/6/67/Amy_Winehouse_-_Back_to_Black_%28album%29.png'></Vinyl>
             </View>
             </ScrollView>
@@ -33,13 +29,9 @@ const HomeScreen=({})=>{
                 <Ionicons name='musical-notes-outline' size={24} color='#ff3131' />
             </View>
             <ScrollView horizontal={true}>
-            <View style={styles.row}>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
                     <Vinyl title='Back to black' description='Album di Amy WhineHouse' image='https://upload.wikimedia.org/wikipedia/en/6/67/Amy_Winehouse_-_Back_to_Black_%28album%29.png'></Vinyl>
-            </View>
-            <View style={styles.row}>
                     <Vinyl title='Back to black' description='Album di Amy WhineHouse' image='https://upload.wikimedia.org/wikipedia/en/6/67/Amy_Winehouse_-_Back_to_Black_%28album%29.png'></Vinyl>
-            </View>
-            <View style={styles.row}>
                     <Vinyl title='Back to black' description='Album di Amy WhineHouse' image='https://upload.wikimedia.org/wikipedia/en/6/67/Amy_Winehouse_-_Back_to_Black_%28album%29.png'></Vinyl>
             </View>
             </ScrollView>

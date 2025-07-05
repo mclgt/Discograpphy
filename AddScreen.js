@@ -16,13 +16,13 @@ const AddScreen=({})=>{
             <View style={styles.addScreenBody}>
                 <View style={styles.header2}>
                     <Text style={styles.titolo}>Vinyl name</Text>
-                    <TouchableOpacity onPress={() => console.log('Like Vinyl!')}>
-                        <Ionicons name="heart-outline" size={24} color="#ff3131" />
+                    <TouchableOpacity style={styles.goBackButton} onPress={() => console.log('Go Back!')}>
+                        <Ionicons name="arrow-back-outline" size={24} color="#fff" />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.goBackButton} onPress={() => console.log('Go Back!')}>
-                        <Ionicons name="arrow-back-outline" size={24} color="#fff" />
+                <TouchableOpacity onPress={() => console.log('Like Vinyl!')}>
+                        <Ionicons name="heart-outline" size={24} color="#ff3131" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.modifyButton} onPress={() => console.log('Modify Vinyl!')}>
                         <Text style={styles.modifyButtontext}>Modify</Text>
