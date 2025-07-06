@@ -16,13 +16,12 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: '#333',
+        fontFamily:'Monoton',
     },
     red: {
         color: '#ff3131',
-        fontWeight: '800',
-        fontStyle: 'italic',
+        fontStyle: 'Monoton',
     },
     row: {
         flexDirection: 'row',
@@ -32,8 +31,8 @@ const styles = StyleSheet.create({
     },
     minorTitle: {
         fontSize: 18,
-        fontWeight: 'bold',
-        color:'#333'
+        color:'#333',
+        fontFamily:'Fredoka',
     },
 
     container: {
