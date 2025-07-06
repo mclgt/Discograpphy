@@ -16,13 +16,12 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Monoton',
         color: '#333',
     },
     red: {
         color: '#ff3131',
-        fontWeight: '800',
-        fontStyle: 'italic',
+        fontFamily: 'Monoton',
     },
     titolominore:{
         flexDirection: 'row',
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     },
     testo:{
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Fredoka',
         color:'#333',
         textAlign:'center',
     },

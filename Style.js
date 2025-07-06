@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Fredoka',
         marginBottom: 5,
     },
     description: {
+        fontFamily:'Fredoka',
         fontSize: 14,
         color: '#666',
         marginBottom: 10,

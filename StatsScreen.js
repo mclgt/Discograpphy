@@ -24,7 +24,7 @@ const StatsScreen=({})=>{
             <View style={styles.congratsbox}>
                 <Text style={styles.testo}>CONGRATS</Text>
                 <Ionicons name="trophy-outline" size={24} color="#ff3131" alignItem></Ionicons>
-                <Text style={styles.testo}>YOU HAVE A TON OF VINYLS IN YOUR COLLECTION</Text>
+                <Text style={styles.testo}>You have a ton of vinyls in your collection</Text>
             </View>
             </View>
             <View style={styles.riga}>

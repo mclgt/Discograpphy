@@ -16,13 +16,12 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Monoton',
         color: '#333',
     },
     red: {
         color: '#ff3131',
-        fontWeight: '800',
-        fontStyle: 'italic',
+        fontFamily: 'Monoton',
     },
     searchContainer: {
         flex: 1,
