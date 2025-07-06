@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
-        marginTop:20,
+        marginTop: 20,
         backgroundColor: '#f1f1f1',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
@@ -16,29 +16,44 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
+        fontWeight: 'bold',
         color: '#333',
-        fontFamily:'Monoton',
     },
     red: {
         color: '#ff3131',
-        fontStyle: 'Monoton',
+        fontWeight: '800',
+        fontStyle: 'italic',
     },
-    row: {
+    titolominore:{
         flexDirection: 'row',
-        justifyContent:'flex-start',
         paddingHorizontal: 10,
         marginVertical: 10,
     },
-    minorTitle: {
+    testo:{
         fontSize: 18,
+        fontWeight: 'bold',
         color:'#333',
-        fontFamily:'Fredoka',
+        textAlign:'center',
     },
-
-    container: {
-        flexdirection: 'row',
+    goBackButton: {
         padding: 10,
-        backgroundColor: '#dfdfdf',
+        backgroundColor: '#ff3131',
+        borderRadius: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+        marginLeft: 'auto',
+    },
+    congratsbox:
+    {
+        flexDirection: 'column',
+        alignItems:'center',
+        justifyContent:'center',
+        padding: 10,
+        width: 200,              
+        height: 200,
+        backgroundColor: '#fff',
         borderRadius: 10,
         marginVertical: 10,
         shadowColor: '#000',
@@ -46,36 +61,12 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
     },
-    image: {
-        width:'100%',
-        height: 200,
-        borderRadius: 10,
-        marginBottom: 10,
-        backgroundColor: '#ccc',
-    },
-    info: {
-        padding: 10,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    description: {
-        fontSize: 14,
-        color: '#666',
-        marginBottom: 10,
-    },
-    actions: {
+    riga:
+    {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10,
-    },
-}); 
+        justifyContent:'flex-start',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    }
+});
 export default styles;
