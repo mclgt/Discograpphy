@@ -29,6 +29,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 10,
     },
+    specedrow: {
+        flexDirection: 'row',
+        justifyContent:'space-evenly',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        flex:1,
+    },
     minorTitle: {
         fontSize: 18,
         color:'#333',
@@ -78,5 +85,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 10,
     },
+    buttonText:{
+        paddingRight:80,
+        fontWeight: 900
+    }
 }); 
 export default styles;
