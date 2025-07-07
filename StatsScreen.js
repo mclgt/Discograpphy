@@ -16,9 +16,6 @@ const StatsScreen=({})=>{
             </View>
             <View style={styles.titolominore}>
                 <Text style={styles.testo}>MY STATS</Text>
-                <TouchableOpacity style={styles.goBackButton} onPress={() => console.log('Go Back!')}>
-                        <Ionicons name="arrow-back-outline" size={24} color="#fff" />
-                    </TouchableOpacity>
             </View>
             <View style={{ alignItems: 'center', marginVertical: 30 }}>
             <View style={styles.congratsbox}>

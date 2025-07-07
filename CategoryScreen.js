@@ -15,9 +15,6 @@ const CategoryScreen=({})=>{
             </View>
             <View style={styles.titolominore}>
                 <Text style={styles.testo}>CATEGORIES</Text>
-                <TouchableOpacity style={styles.goBackButton} onPress={() => console.log('Go Back!')}>
-                        <Ionicons name="arrow-back-outline" size={24} color="#fff" />
-                    </TouchableOpacity>
             </View> 
             <View style={styles.riga}>
                 <Text style={styles.testo}>JAZZ</Text>

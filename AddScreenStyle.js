@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 20,
         fontFamily: 'Monoton',
+        fontWeight: 'bold',
         color: '#333',
     },
     red: {

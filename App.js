@@ -6,8 +6,8 @@ import AppNavigator from './Navigator';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    'Monoton': require('./assets/Monoton-Regular.ttf'),
-    'Fredoka': require('./assets/Fredoka.ttf')
+    'Monoton': require('./assets/Fonts/Monoton-Regular.ttf'),
+    'Fredoka': require('./assets/Fonts/Fredoka.ttf')
   });
 
   if (!fontsLoaded) {
