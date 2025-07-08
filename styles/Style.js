@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     },
     buttonText:{
         paddingRight:80,
-        fontWeight: 900
+        color: '#ff3131',
+        textDecorationLine: 'underline'
     }
 }); 
 export default styles;

@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView,StyleSheet, Text, View, Button, FlatList, Switch, SafeAreaView,Image} from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import styles from './Style.js';
+import styles from './styles/Style.js';
 import Vinyl from './Vinyl.js';
 
 

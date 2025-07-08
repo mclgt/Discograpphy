@@ -1,10 +1,12 @@
 import React from 'react';
-import styles from './Style.js';
+import styles from './styles/Style.js';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
 
 function Vinyl({ title, description, image }) {
+    const [vinylSet, addVinyl] = useState([]);
     return (
         <View style={styles.container} >
             <Image source={{ uri: image }} style={styles.image} />

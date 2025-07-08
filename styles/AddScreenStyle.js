@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Fredoka',
         color: '#333',
         marginBottom: 20,
+        width: 200,
     },
     buttons: {
         flexDirection: 'row',
