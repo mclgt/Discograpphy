@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
     },
     titolominore:{
         flexDirection: 'row',
-        paddingHorizontal: 10,
+        justifyContent: 'space-between',
+        alignItems:'center',
+        paddingHorizontal: 16,
         marginVertical: 10,
     },
     testo:{
@@ -33,6 +35,25 @@ const styles = StyleSheet.create({
         fontFamily: 'Fredoka',
         color:'#333',
         textAlign:'center',
+    },
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 5,
+    },
+     addButton: {
+        padding: 10,
+        backgroundColor: '#ff3131',
+        borderRadius: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+    },
+    addButtontext: {
+        color: '#fff',
+        fontFamily: 'Fredoka',
     },
     goBackButton: {
         padding: 10,
