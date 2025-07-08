@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import AppNavigator from './Navigator';
+import VinylManager from './VinylManager';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -14,7 +15,10 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return <AppNavigator />;
+  return (
+    <VinylManager>
+      <AppNavigator/>
+    </VinylManager>);
 }
 
 

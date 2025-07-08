@@ -1,22 +1,33 @@
 import React from 'react';
-import styles from './Style.js';
+import styles from './styles/Style.js';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-function Vinyl({ title, description, image }) {
+function Vinyl({ vinyl, onDelete }) {
+    if (!vinyl){
+        return null; 
+    }
+    const navigator = useNavigation(); 
+
+    const goDetails = () =>{
+        navigator.navigate('Add', {vinyl});
+    };
     return (
         <View style={styles.container} >
-            <Image source={{ uri: image }} style={styles.image} />
+            <Image source={{ uri: vinyl.image }} style={styles.image} />
             <View style={styles.info}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.description}>{description}</Text>
+                <Text style={styles.title}>{vinyl.title}</Text>
+                <Text style={styles.description}>{vinyl.artist}</Text>
+                <Text style={styles.description}>{vinyl.year}</Text>
+                <Text style={styles.description}>{vinyl.condition}</Text>
                 <View style={styles.actions}>
                        <View style={styles.specedrow}>
-                        <TouchableOpacity style={styles.bottone} onPress={() => console.log('Click!')}>
+                        <TouchableOpacity style={styles.bottone} onPress={goDetails}>
                              <Text style={styles.buttonText}>More...</Text>
                          </TouchableOpacity>
-                          <TouchableOpacity style={styles.bottone} onPress={() => console.log('Click!')}>
+                          <TouchableOpacity style={styles.bottone} onPress={onDelete}>
                             <Ionicons name="trash-outline" size={32} color="#ff3131" />
                          </TouchableOpacity>
                        </View>

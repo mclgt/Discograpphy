@@ -3,7 +3,7 @@ import { ScrollView,StyleSheet, Text, View, Button, FlatList, Switch, SafeAreaVi
 import {useState, useEffect, useContext} from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import styles from './CategoryScreenStyle.js';
+import styles from './styles/CategoryScreenStyle.js';
 import Vinyl from './Vinyl.js';
 
 const CategoryScreen=({})=>{

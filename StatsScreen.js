@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView,StyleSheet, Text, View, Button, FlatList, Switch, SafeAreaView,Image} from 'react-native';
 import { useState, useEffect, useContext } from 'react';
-import styles from './StatsScreenStyle.js';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Vinyl from './Vinyl.js';
+import styles from './styles/StatsScreenStyle.js';
 
 
 const StatsScreen=({})=>{
