@@ -7,6 +7,12 @@ import styles from './styles/CategoryScreenStyle.js';
 import Vinyl from './Vinyl.js';
 
 const CategoryScreen=({})=>{
+    const[nameCategory,setCategories]=useState([
+        'JAZZ', 'HIP HOP', 'ROCK', 'COUNTRY', 'POP', 'BLACK METAL','DISCO MUSIC','ELETTRONICA','FOLK MUSIC', 'FUNK', 'BLUES', 'HARD ROCK'
+    ]);
+    const handleAddCategory = (newCategory) =>{
+        setCategories([...prev, newCategory]);
+    };
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>

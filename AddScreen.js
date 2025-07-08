@@ -23,7 +23,7 @@ const AddScreen=({})=>{
     const [selectedCondition, setCondition] = useState("Perfect")
     const [favourite, setFavourite] = useState(false)
     const [imageUrl, setImageUrl] = useState("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=")
-    const validExtensionUrls = ['.jpg', 'jpeg', '.png','.gif', '.webp', 'bmp', 'svg'];
+    const validExtensionUrls = ['.jpg', '.jpeg', '.png','.gif', '.webp', '.bmp', '.svg'];
 
     useEffect(()=>{
         if(receivedVinyl){
