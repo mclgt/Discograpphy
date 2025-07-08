@@ -15,7 +15,12 @@ const CategoryScreen=({})=>{
             </View>
             <View style={styles.titolominore}>
                 <Text style={styles.testo}>CATEGORIES</Text>
-            </View> 
+            <View style={styles.buttons}>
+                <TouchableOpacity style={styles.addButton} onPress={() => console.log('Add Categories!')}>
+                        <Text style={styles.addButtontext}>Add Categories</Text>
+                </TouchableOpacity>
+            </View>
+            </View>
             <View style={styles.riga}>
                 <Text style={styles.testo}>JAZZ</Text>
                 <Ionicons name='volume-high-outline' size={24} color='#ff3131' />
