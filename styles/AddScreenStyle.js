@@ -97,6 +97,12 @@ const styles = StyleSheet.create({
         color: '#a6a6a6',
         marginBottom: 5,
     },
+     subtext: {
+        fontSize: 12,
+        fontFamily: 'Fredoka',
+        color: '#a6a6a6',
+        marginBottom: 5,
+    },
     input: {
         height: 40,
         borderColor: '#ccc',

@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView,StyleSheet, Text,TextInput, View, Button, FlatList, Switch, SafeAreaView,Image} from 'react-native';
 import { useState, useEffect, useContext } from 'react';
-import styles from './SearchScreenStyle.js';
+import styles from './styles/SearchScreenStyle.js';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
