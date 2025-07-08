@@ -16,15 +16,12 @@ const StatsScreen=({})=>{
             </View>
             <View style={styles.titolominore}>
                 <Text style={styles.testo}>MY STATS</Text>
-                <TouchableOpacity style={styles.goBackButton} onPress={() => console.log('Go Back!')}>
-                        <Ionicons name="arrow-back-outline" size={24} color="#fff" />
-                    </TouchableOpacity>
             </View>
             <View style={{ alignItems: 'center', marginVertical: 30 }}>
             <View style={styles.congratsbox}>
                 <Text style={styles.testo}>CONGRATS</Text>
                 <Ionicons name="trophy-outline" size={24} color="#ff3131" alignItem></Ionicons>
-                <Text style={styles.testo}>YOU HAVE A TON OF VINYLS IN YOUR COLLECTION</Text>
+                <Text style={styles.testo}>You have a ton of vinyls in your collection</Text>
             </View>
             </View>
             <View style={styles.riga}>

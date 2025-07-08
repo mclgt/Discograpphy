@@ -12,10 +12,15 @@ function Vinyl({ title, description, image }) {
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.description}>{description}</Text>
                 <View style={styles.actions}>
-                    <TouchableOpacity style={styles.bottone} onPress={() => console.log('Click!')}>
-                        <Text style={styles.testoBottone}>More</Text>
-                        <Ionicons name="trash-outline" size={32} color="#ff3131" />
-                    </TouchableOpacity>
+                       <View style={styles.specedrow}>
+                        <TouchableOpacity style={styles.bottone} onPress={() => console.log('Click!')}>
+                             <Text style={styles.buttonText}>More...</Text>
+                         </TouchableOpacity>
+                          <TouchableOpacity style={styles.bottone} onPress={() => console.log('Click!')}>
+                            <Ionicons name="trash-outline" size={32} color="#ff3131" />
+                         </TouchableOpacity>
+                       </View>
+
                 </View>
             </View>
          </View>

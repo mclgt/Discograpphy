@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
+        fontFamily: 'Monoton',
         fontWeight: 'bold',
         color: '#333',
     },
     red: {
         color: '#ff3131',
-        fontWeight: '800',
-        fontStyle: 'italic',
+        fontFamily: 'Monoton',
     },
     addScreenBody: {
         flex: 1,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     titolo: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Fredoka',
         color: '#333',
         marginBottom: 20,
     },
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     modifyButtontext: {
         color: '#fff',
-        fontWeight: 'bold',
+        fontFamily: 'Fredoka',
     },
     addButton: {
         padding: 10,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
     addButtontext: {
         color: '#fff',
-        fontWeight: 'bold',
+        fontFamily: 'Fredoka',
     },
     formContainer: {
         marginTop: 20,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'Fredoka',
         color: '#a6a6a6',
         marginBottom: 5,
     },
