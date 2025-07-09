@@ -50,7 +50,8 @@ export default function App() {
           await db.execAsync(
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  genre TEXT NOT NULL UNIQUE
+                  genre TEXT NOT NULL UNIQUE,
+                  numeroVinili INTEGER DEFAULT 0
               );`
             );
           const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
@@ -72,11 +73,11 @@ export default function App() {
       }}options={{useNewConnection: false}}
     >
     
-    <VinylManager >
-      <CategoryManager>
+    <CategoryManager >
+      <VinylManager>
          <AppNavigator/>
-      </CategoryManager>
-    </VinylManager>
+      </VinylManager>
+    </CategoryManager>
     </SQLiteProvider>
 
   );

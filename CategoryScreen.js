@@ -11,7 +11,6 @@ import { VinylContext } from './VinylManager.js';
 const CategoryScreen=({})=>{
     const [modalVisible, setModalVisible]=useState(false);
     const {categories,isLoading,uploadCategories,removeCategory}=useContext(CategoryContext);
-    console.log('CategoryContext:', {categories, isLoading, uploadCategories, removeCategory});
     const {vinyls,removeVinyl}=useContext(VinylContext);
      console.log("Categorie lette dal DB:", categories);
      if (isLoading){
@@ -40,6 +39,7 @@ const CategoryScreen=({})=>{
                 <View>
                     <View style={styles.buttons}>
                     <Text style={styles.testo}>{item.genre}</Text>
+                    <Text style={styles.testo}>{item.numeroVinili}</Text>
                     <TouchableOpacity style={styles.bottone} onPress={()=>removeCategory(item.id)} >
                         <Ionicons name="trash-outline" size={28} color="#ff3131" />
                     </TouchableOpacity>

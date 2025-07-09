@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Fredoka',
         color:'#333',
         textAlign:'left',
+        justifyContent: 'space-between',
     },
     buttons: {
         flexDirection: 'row',

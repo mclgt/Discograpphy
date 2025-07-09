@@ -1,13 +1,15 @@
-import React, {createContext,useState,useEffect} from 'react'; 
+import React, {createContext,useState,useEffect, useContext} from 'react'; 
 import Vinyl from './Vinyl';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Alert } from 'react-native';
+import { CategoryContext } from './CategoryManager';
 
 export const VinylContext = createContext(); 
 
 export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
     const [isLoading, setIsLoading] = useState(false); 
+    const {uploadCategories}=useContext(CategoryContext);
     const db = useSQLiteContext();
 
     const uploadVinyls = async () =>{
@@ -40,6 +42,11 @@ export const VinylManager = ({children}) =>{
                 'INSERT INTO vinyls (title, artist, label, year, category_id, image, condition, isFavourite) VALUES (?, ?, ?, ?, ?, ?, ? ,?)',
                 [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.category_id, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
             )
+            await db.runAsync(
+                'UPDATE category set numeroVinili=numeroVinili+1 where id = ?',
+                [newVinyl.category_id]
+            )
+            await uploadCategories();
             Alert.alert("Vinyl added successfully!");
             uploadVinyls(); 
         }catch (error){
@@ -50,11 +57,21 @@ export const VinylManager = ({children}) =>{
 
     const removeVinyl = async (id) => {
        try{
+            const categoria = await db.getAllAsync(
+                'SELECT category_id FROM vinyls WHERE id = ?',
+                [id]
+            )
+            const categoriaId=categoria[0].categoriaId;
             await db.runAsync(
                 'DELETE FROM vinyls WHERE id = ?',
                 [id]
             )
+            await db.runAsync(
+                'UPDATE category set numeroVinili = numeroVinili - 1 WHERE id = ?',
+                [categoriaId]
+            )
             Alert.alert("Vinyl removed successfully!");
+            await uploadCategories();
             uploadVinyls(); 
         }catch (error){
             console.error(error); 
@@ -68,6 +85,11 @@ export const VinylManager = ({children}) =>{
                 'UPDATE vinyls SET title = ?, artist = ?, label = ?, year = ?, category_id = ?, image = ?, condition = ?, isFavourite = ? WHERE id = ?',
                 [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.category_id, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
             )
+            await db.runAsync(
+                'UPDATE category set numeroVinili=numeroVinili+1 where id = ?',
+                [updatedVinyl.category_id]
+            )
+            await uploadCategories();
             Alert.alert("Vinyl updated successfully!");
             uploadVinyls(); 
         }catch (error){
