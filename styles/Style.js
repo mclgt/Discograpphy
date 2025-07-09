@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
     },
     specedrow: {
         flexDirection: 'row',
-        justifyContent:'space-evenly',
-        paddingHorizontal: 10,
-        marginVertical: 10,
+        justifyContent:'space-between',
+        paddingHorizontal: 0,
+        marginVertical: 20,
         flex:1,
     },
     minorTitle: {
@@ -52,13 +52,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
+        width: 200, 
+        height:420,
     },
     image: {
-        width:'100%',
-        height: 200,
+        aspectRatio:1,
+        resizeMode:'contain',
         borderRadius: 10,
         marginBottom: 10,
         backgroundColor: '#ccc',
+        alignContent: 'center',
+        width: '100%',
     },
     info: {
         padding: 10,
@@ -88,6 +92,13 @@ const styles = StyleSheet.create({
     buttonText:{
         paddingRight:80,
         fontWeight: 900
-    }
+    },
+    noVinyls:{
+        fontSize: 18,
+        fontFamily: 'Fredoka',
+        padding: 20,
+        textAlign: 'center',
+    },
+
 }); 
 export default styles;

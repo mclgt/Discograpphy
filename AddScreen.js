@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView,StyleSheet, Text , TextInput, View, Button, FlatList, Switch, SafeAreaView, Image,KeyboardAvoidingView, Platform} from 'react-native';
+import { Alert,ScrollView,StyleSheet, Text , TextInput, View, Button, FlatList, Switch, SafeAreaView, Image,KeyboardAvoidingView, Platform} from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
@@ -10,11 +10,11 @@ import {Picker} from '@react-native-picker/picker';
 
 
 
+
 const AddScreen=({})=>{
     const route = useRoute(); 
     const receivedVinyl = route.params?.vinyl
     const {addVinyl,setVinyl}=useContext(VinylContext)
-    const [nextID, setnextID] = useState(1);
     const [title, setTitle] = useState("")
     const [artist, setArtist] = useState("")
     const [genre, setGenre] = useState("")
@@ -24,17 +24,19 @@ const AddScreen=({})=>{
     const [favourite, setFavourite] = useState(false)
     const [imageUrl, setImageUrl] = useState("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=")
     const validExtensionUrls = ['.jpg', 'jpeg', '.png','.gif', '.webp', 'bmp', 'svg'];
+    const [editMode, setEditMode]= useState(false);
 
     useEffect(()=>{
-        if(receivedVinyl){
+        if(receivedVinyl && !editMode){
             setArtist(receivedVinyl.artist); 
             setCondition(receivedVinyl.condition); 
-            setFavourite(receivedVinyl.isFavourite); 
+            setFavourite((receivedVinyl.isFavourite==1)? true: false); 
             setGenre(receivedVinyl.genre); 
             setImageUrl(receivedVinyl.image); 
             setLabel(receivedVinyl.label); 
             setTitle(receivedVinyl.title); 
-            setYear(receivedVinyl.year)
+            setYear(receivedVinyl.year); 
+            setEditMode(true);
         }
     },[receivedVinyl])
 
@@ -59,7 +61,7 @@ const AddScreen=({})=>{
             }
         }
         if (valid==false){
-            alert("Inserisci un URL valido che contenga con .png, .jpeg etc.. ")
+            alert("Inserisci un URL valido che contenga .png, .jpeg etc.. ")
             return false;
         }
         return true;
@@ -78,25 +80,7 @@ const AddScreen=({})=>{
     }
 
     const Add = ()=>{
-        const newVinyl = {
-            id: nextID,
-            title: title,
-            artist: artist, 
-            isFavourite: favourite, 
-            genre: genre, 
-            year: year, 
-            image: imageUrl, 
-            label: label,
-            condition: selectedCondition,
-        };
-        addVinyl(newVinyl);
-        setnextID((prevID) => prevID+1);
-        resetFields();
-    }
-
-    const Modify= () =>{
-        const updateVinyl={
-            id:receivedVinyl.id, 
+        const newVinyl={
             title:title, 
             artist:artist, 
             year:year, 
@@ -104,9 +88,33 @@ const AddScreen=({})=>{
             image:imageUrl, 
             label:label, 
             condition:selectedCondition, 
-            isFavourite:favourite};
-            setVinyl(updateVinyl);
+            isFavourite:favourite? 1:0
+        };
+        addVinyl(newVinyl);
         resetFields();
+    }
+
+    const Modify= () =>{
+        if(editMode){
+            const updateVinyl={
+                id:receivedVinyl.id, 
+                title:title, 
+                artist:artist, 
+                year:year, 
+                genre:genre, 
+                image:imageUrl, 
+                label:label, 
+                condition:selectedCondition, 
+                isFavourite:favourite? 1:0
+            };
+            setVinyl(updateVinyl);
+            setEditMode(false);
+            resetFields();
+        }   
+        else{
+            Alert.alert("No vinyl selected", "Please select a vinyl to modify");
+            return;
+        }
     }
 
 
