@@ -10,7 +10,7 @@ import CategoryAdder from './CategoryAdder.js';
 const CategoryScreen=({})=>{
     const [modalVisible, setModalVisible]=useState(false);
     const {categories,isLoading,uploadCategories}=useContext(CategoryContext);
-     console.log("Categorie lette dal DB:", categories);
+     //console.log("Categorie lette dal DB:", categories);
      if (isLoading){
             return(
                 <ActivityIndicator size ="large" color="#ff3131" style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />

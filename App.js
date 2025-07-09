@@ -25,10 +25,10 @@ export default function App() {
     <SQLiteProvider 
       databaseName='vinyls.db'
       onInit={async (db) => {
-          await db.execAsync( 'PRAGMA journal_mode= WAL;');
-          await db.execAsync('DROP TABLE IF EXISTS vinyls;');
-          await db.execAsync(
-            `CREATE TABLE IF NOT EXISTS vinyls (
+          await db.execAsync(`
+            DROP TABLE IF EXISTS vinyls; 
+            DROP TABLE IF EXISTS category;
+            CREATE TABLE IF NOT EXISTS vinyls (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   title TEXT NOT NULL,
                   artist TEXT,
@@ -38,35 +38,29 @@ export default function App() {
                   image TEXT,
                   condition TEXT,
                   isFavourite INTEGER DEFAULT 0
-              );
-
-          `);
-          await db.execAsync(
-              `DROP TABLE IF EXISTS category;`);
-          await db.execAsync(
-              `CREATE TABLE IF NOT EXISTS category (
-                  id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  genre TEXT NOT NULL
               );`
-            );
-           const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
-          console.log("📊 Schema category:", tableInfo);
-           const categoriess = [
-         "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
-    ]
-        for (const genre of categoriess){
-          console.log("Inserting genre:", genre);
-          await db.execAsync(
-              'INSERT INTO category (genre) VALUES (?)', [genre]
           );
-        }
-      }}options={{useNewConnection: false}}
+          await db.execAsync(`
+              CREATE TABLE IF NOT EXISTS category (
+                  id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  genre TEXT 
+              );`
+          );
+          await db.execAsync(`
+              INSERT INTO category (genre) VALUES ('JAZZ'), ('HIP HOP'), ('ROCK'), ('COUNTRY'), ('POP');`
+          );
+          const categoryInfo = await db.getAllAsync('PRAGMA table_info(category)');
+          const vinylsInfo = await db.getAllAsync('PRAGMA table_info(vinyls)');
+          console.log("📊 Schema category:", categoryInfo);
+          console.log("📀 Schema vinyls:", vinylsInfo);
+      }}
+      options={{useNewConnection: false}}
     >
-      <CategoryManager />
-      <VinylManager >
-        <AppNavigator/>
-      </VinylManager>
-
+      <CategoryManager>
+        <VinylManager >
+          <AppNavigator/>
+        </VinylManager>
+      </CategoryManager>
     </SQLiteProvider>
 
   );

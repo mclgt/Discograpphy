@@ -29,6 +29,10 @@ const CategoryManager = ({children}) =>{
             }
         },[db])
     const addCategory = async (newCategory) => {
+            if (!newCategory || newCategory.trim() === '') {
+                Alert.alert("Errore", "Il genere non può essere vuoto.");
+                return;
+            }
            try{
                 await db.runAsync(
                     'INSERT INTO category (genre) VALUES (?)',
