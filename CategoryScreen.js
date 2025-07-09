@@ -20,6 +20,7 @@ const CategoryScreen=({})=>{
     }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
+        <ScrollView>
             <View style={styles.header}>
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
@@ -38,6 +39,11 @@ const CategoryScreen=({})=>{
                 renderItem={({item})=>(
                 <View>
                     <Text style={styles.testo}>{item.genre}</Text>
+                    <View style={styles.buttons}>
+                    <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+                        <Text style={styles.addButtontext}>Add Categories</Text>
+                    </TouchableOpacity>
+                    </View>
                     <FlatList
                         data={vinyls.filter(v=>v.category_id === item.id)}
                         renderItem={({item: vinyl})=>(
@@ -58,6 +64,7 @@ const CategoryScreen=({})=>{
             visible={modalVisible}
             onClose={()=>setModalVisible(false)}
             /> 
+            </ScrollView>
         </SafeAreaView>
           )
 };
