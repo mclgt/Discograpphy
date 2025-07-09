@@ -38,6 +38,11 @@ const CategoryScreen=({})=>{
                 renderItem={({item})=>(
                 <View>
                     <Text style={styles.testo}>{item.genre}</Text>
+                    <View style={styles.buttons}>
+                    <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+                        <Text style={styles.addButtontext}>Add Categories</Text>
+                    </TouchableOpacity>
+                    </View>
                     <FlatList
                         data={vinyls.filter(v=>v.category_id === item.id)}
                         renderItem={({item: vinyl})=>(
