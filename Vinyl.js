@@ -19,14 +19,15 @@ function Vinyl({ vinyl, onDelete }) {
             <Image source={{ uri: vinyl.image }} style={styles.image} />
             <View style={styles.info}>
                 <Text style={styles.title}>{vinyl.title}</Text>
-                <Text style={styles.description}>{vinyl.artist}</Text>
-                <Text style={styles.description}>{vinyl.year}</Text>
-                <Text style={styles.description}>{vinyl.condition}</Text>
+                <Text style={styles.description}>Artist: {vinyl.artist}</Text>
+                <Text style={styles.description}>Year: {vinyl.year}</Text>
+                <Text style={styles.description}>Condition: {vinyl.condition}</Text>
                 <View style={styles.actions}>
                        <View style={styles.specedrow}>
                         <TouchableOpacity style={styles.bottone} onPress={goDetails}>
-                             <Text style={styles.buttonText}>More...</Text>
+                            <Ionicons name="ellipsis-horizontal-circle-outline" size={32} color="grey" />
                          </TouchableOpacity>
+                         <Ionicons name={vinyl.isFavourite == 1 ? "heart":"heart-outline"} size={32} color="grey" />
                           <TouchableOpacity style={styles.bottone} onPress={onDelete}>
                             <Ionicons name="trash-outline" size={32} color="#ff3131" />
                          </TouchableOpacity>

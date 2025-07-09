@@ -1,23 +1,22 @@
-import {useState} from 'react';
-import { Modal, View, TextInput, Button, StyleSheet } from 'react-native';
+import { useContext, useState} from 'react';
+import { Modal, View, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import styles from './styles/CategoryScreenStyle.js';
+import { CategoryContext } from './CategoryManager.js';
 
-const CategoryAdder = ({visible, onClose, onSubmit}) =>{
-    const [name, setName]=useState('');
 
-    const handleSubmit = () => {
-        if(name == ''){
+const CategoryAdder = ({visible, onClose}) =>{
+    const {addCategory} = useContext(CategoryContext);
+    const [name, setName]=useState("");
+
+    const validation = () => {
+        if(!name.trim()){
             alert("Nome obbligatorio!"); 
             return false;
         }
-        else if (name.trim()){
-            onSubmit(name.trim())
-            setName('');
-            onClose();
-        }
-    };
+        return true;
 
-     return (
+    };
+    return (
     <Modal visible={visible} transparent animationType="fade">
       <View styles={styles.overlay}>
         <View styles={styles.modalContent}>
@@ -29,7 +28,11 @@ const CategoryAdder = ({visible, onClose, onSubmit}) =>{
             style={styles.testo}
           />
           <View style={styles.buttons}>
-            <Button title="Aggiungi" onPress={handleSubmit} color="darkred" />
+            <Button title="Aggiungi" onPress={()=>{if (validation()){
+              addCategory(name);
+              setName="";
+              onClose();
+            }}} color="darkred" />
             <Button title="Annulla" onPress={onClose} color="grey" />
           </View>
         </View>
