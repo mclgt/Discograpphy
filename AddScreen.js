@@ -7,6 +7,7 @@ import styles from './styles/AddScreenStyle.js';
 import { useRoute } from '@react-navigation/native';
 import { VinylContext } from './VinylManager.js';
 import {Picker} from '@react-native-picker/picker';
+import { CategoryContext } from './CategoryManager.js';
 
 
 
@@ -17,7 +18,7 @@ const AddScreen=({})=>{
     const {addVinyl,setVinyl}=useContext(VinylContext)
     const [title, setTitle] = useState("")
     const [artist, setArtist] = useState("")
-    const [genre, setGenre] = useState("")
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null)
     const [year, setYear] = useState("")
     const [label, setLabel] = useState("")
     const [selectedCondition, setCondition] = useState("Perfect")
@@ -25,13 +26,13 @@ const AddScreen=({})=>{
     const [imageUrl, setImageUrl] = useState("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=")
     const validExtensionUrls = ['.jpg', 'jpeg', '.png','.gif', '.webp', 'bmp', 'svg'];
     const [editMode, setEditMode]= useState(false);
-
+    const {categories}=useContext(CategoryContext);
     useEffect(()=>{
         if(receivedVinyl && !editMode){
             setArtist(receivedVinyl.artist); 
             setCondition(receivedVinyl.condition); 
             setFavourite((receivedVinyl.isFavourite==1)? true: false); 
-            setGenre(receivedVinyl.genre); 
+            setSelectedCategoryId(receivedVinyl.category_id);
             setImageUrl(receivedVinyl.image); 
             setLabel(receivedVinyl.label); 
             setTitle(receivedVinyl.title); 
@@ -73,7 +74,7 @@ const AddScreen=({})=>{
         setArtist(""); 
         setCondition("Perfect"); 
         setFavourite(false); 
-        setGenre(""); 
+        setSelectedCategoryId(null);
         setImageUrl("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=");
         setLabel(""); 
         setYear("");
@@ -84,11 +85,12 @@ const AddScreen=({})=>{
             title:title, 
             artist:artist, 
             year:year, 
-            genre:genre, 
+            category_id: selectedCategoryId,
             image:imageUrl, 
             label:label, 
             condition:selectedCondition, 
             isFavourite:favourite? 1:0
+            
         };
         addVinyl(newVinyl);
         resetFields();
@@ -101,7 +103,7 @@ const AddScreen=({})=>{
                 title:title, 
                 artist:artist, 
                 year:year, 
-                genre:genre, 
+                category_id: selectedCategoryId, 
                 image:imageUrl, 
                 label:label, 
                 condition:selectedCondition, 
@@ -159,8 +161,16 @@ const AddScreen=({})=>{
                         <TextInput style={styles.input} placeholder="Enter artist" value={artist} onChangeText={setArtist} /> 
                         <Text style={styles.label}>Year</Text>
                         <TextInput style={styles.input} placeholder="Enter year" value={year} keyboardType= "numeric" onChangeText={setYear} /> 
-                        <Text style={styles.label}>Genre</Text>
-                        <TextInput style={styles.input} placeholder="Enter genre" value={genre} onChangeText={setGenre} />
+                        <Picker
+                            selectedValue={selectedCategoryId}
+                            onValueChange={(itemValue)=>setSelectedCategoryId(itemValue)}
+                        >
+                            <Picker.Item label="Seleziona una categoria..." value={null} enabled={false}/>
+                            {categories.map(cat=>(
+                                <Picker.Item label={cat.genre} value={cat.id} key={cat.id}/>
+    
+                            ))}
+                        </Picker>
                         <Text style={styles.label}>Record label</Text>
                         <TextInput style={styles.input} placeholder= "Enter record label" value={label} onChangeText={setLabel}/> 
                         <Text style={styles.label}>Conditions</Text>

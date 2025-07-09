@@ -7,9 +7,11 @@ import styles from './styles/CategoryScreenStyle.js';
 import Vinyl from './Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
 import CategoryAdder from './CategoryAdder.js';
+import { VinylContext } from './VinylManager.js';
 const CategoryScreen=({})=>{
     const [modalVisible, setModalVisible]=useState(false);
     const {categories,isLoading,uploadCategories}=useContext(CategoryContext);
+    const {vinyls,removeVinyl}=useContext(VinylContext);
      console.log("Categorie lette dal DB:", categories);
      if (isLoading){
             return(
@@ -30,11 +32,21 @@ const CategoryScreen=({})=>{
                 </TouchableOpacity>
             </View>
             </View>
-            <View>
+            <View style={{marginBottom: 20}}>
             <FlatList 
                 data={categories}
                 renderItem={({item})=>(
+                <View>
                     <Text style={styles.testo}>{item.genre}</Text>
+                    <FlatList
+                        data={vinyls.filter(v=>v.category_id === item.id)}
+                        renderItem={({item: vinyl})=>(
+                            <Vinyl vinyl={vinyl} onDelete={()=> removeVinyl(vinyl.id)}/>
+                        )}
+                        keyExtractor={(v)=>v.id.toString()}
+                        horizontal
+                        />
+                    </View>
                     )}
                 keyExtractor={(item) => item.id.toString()}
                 showsHorizontalScrollIndicator={false}

@@ -36,10 +36,11 @@ export default function App() {
                   artist TEXT,
                   label TEXT,
                   year INTEGER,
-                  genre TEXT,
+                  category_id INTEGER,
                   image TEXT,
                   condition TEXT,
-                  isFavourite INTEGER DEFAULT 0
+                  isFavourite INTEGER DEFAULT 0,
+                  FOREIGN KEY (category_id) REFERENCES category(id) 
               );
 
           `);
@@ -48,10 +49,10 @@ export default function App() {
           await db.execAsync(
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  genre TEXT
+                  genre TEXT NOT NULL UNIQUE
               );`
             );
-           const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
+          const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
           console.log("📊 Schema category:", tableInfo);
            const categories = [
          "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
