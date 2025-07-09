@@ -59,12 +59,14 @@ const styles = StyleSheet.create({
         fontFamily: 'Fredoka',
         color:'#333',
         textAlign:'left',
+        justifyContent: 'space-between',
     },
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 5,
+        marginTop: 2,
+        padding: 5,
     },
      addButton: {
         padding: 10,
@@ -78,16 +80,6 @@ const styles = StyleSheet.create({
     addButtontext: {
         color: '#fff',
         fontFamily: 'Fredoka',
-    },
-    goBackButton: {
-        padding: 10,
-        backgroundColor: '#ff3131',
-        borderRadius: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 5,
-        marginLeft: 'auto',
     },
     riga:
     {

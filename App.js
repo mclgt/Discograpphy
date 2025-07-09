@@ -7,6 +7,7 @@ import VinylManager from './VinylManager';
 import { SQLiteProvider } from 'expo-sqlite';
 import CategoryManager from './CategoryManager';
 import { NavigationContainer } from '@react-navigation/native';
+import CategoryScreen from './CategoryScreen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -40,7 +41,7 @@ export default function App() {
                   image TEXT,
                   condition TEXT,
                   isFavourite INTEGER DEFAULT 0,
-                  FOREIGN KEY (category_id) REFERENCES category(id) 
+                  FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL
               );
 
           `);
@@ -49,7 +50,8 @@ export default function App() {
           await db.execAsync(
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  genre TEXT NOT NULL UNIQUE
+                  genre TEXT NOT NULL UNIQUE,
+                  numeroVinili INTEGER DEFAULT 0
               );`
             );
           const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");

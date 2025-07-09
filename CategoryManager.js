@@ -46,8 +46,22 @@ const CategoryManager = ({children}) =>{
                 Alert.alert("Error adding category", "Please try again later.");
             }
         };
+    const removeCategory = async (id) =>{
+        try{
+            await db.runAsync(
+                'DELETE FROM category WHERE id=?',
+                [id]
+            )
+            Alert.alert("Category removed successfully!");
+            uploadCategories();
+        }
+        catch(error){
+           console.error(error); 
+            Alert.alert("Error removing category", "Please try again later."); 
+        }
+    }
      return (
-    <CategoryContext.Provider value={{categories, addCategory,setCategories, isLoading, uploadCategories}}>
+    <CategoryContext.Provider value={{categories, addCategory,setCategories, isLoading, uploadCategories, removeCategory}}>
       {children}
     </CategoryContext.Provider>
   );

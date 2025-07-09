@@ -10,7 +10,7 @@ import CategoryAdder from './CategoryAdder.js';
 import { VinylContext } from './VinylManager.js';
 const CategoryScreen=({})=>{
     const [modalVisible, setModalVisible]=useState(false);
-    const {categories,isLoading,uploadCategories}=useContext(CategoryContext);
+    const {categories,isLoading,uploadCategories,removeCategory}=useContext(CategoryContext);
     const {vinyls,removeVinyl}=useContext(VinylContext);
      console.log("Categorie lette dal DB:", categories);
      if (isLoading){
@@ -26,13 +26,14 @@ const CategoryScreen=({})=>{
             </View>
             <View style={styles.titolominore}>
                 <Text style={styles.testo}>CATEGORIES</Text>
-            <View style={styles.buttons}>
-                <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+            <View style={styles.addButton}>
+                <TouchableOpacity style={styles.addButtontext} onPress={() => setModalVisible(true)}>
                         <Text style={styles.addButtontext}>Add Categories</Text>
                 </TouchableOpacity>
             </View>
             </View>
             <View style={{marginBottom: 20}}>
+<<<<<<< HEAD
                 <FlatList 
                     data={categories}
                     renderItem={({item})=>(
@@ -50,6 +51,23 @@ const CategoryScreen=({})=>{
                             horizontal
                             />
                         </View>
+=======
+            <FlatList 
+                data={categories}
+                renderItem={({item})=>(
+                <View>
+                    <View style={styles.buttons}>
+                    <Text style={styles.testo}>{item.genre}</Text>
+                    <Text style={styles.testo}>{item.numeroVinili}</Text>
+                    <TouchableOpacity style={styles.bottone} onPress={()=>removeCategory(item.id)} >
+                        <Ionicons name="trash-outline" size={28} color="#ff3131" />
+                    </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        data={vinyls.filter(v=>v.category_id === item.id)}
+                        renderItem={({item: vinyl})=>(
+                            <Vinyl vinyl={vinyl} onDelete={()=> removeVinyl(vinyl.id)}/>
+>>>>>>> 9145af83e7504079f5bd9be7d24410443baa1680
                         )}
                     keyExtractor={(item) => item.id.toString()}
                     showsHorizontalScrollIndicator={false}
