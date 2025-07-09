@@ -13,7 +13,10 @@ export const VinylManager = ({children}) =>{
     const uploadVinyls = async () =>{
         try{
             const results = await db.getAllAsync(
-                'SELECT * FROM vinyls ORDER BY id DESC'
+               `SELECT vinyls.*, category.genre 
+                FROM vinyls
+                LEFT JOIN category ON vinyls.category_id = category.id
+                ORDER BY vinyls.id DESC;`
             );
             setVinyls(results); 
         }catch(error){
@@ -34,8 +37,8 @@ export const VinylManager = ({children}) =>{
     const addVinyl = async (newVinyl) => {
        try{
             await db.runAsync(
-                'INSERT INTO vinyls (title, artist, label, year, genre, image, condition, isFavourite) VALUES (?, ?, ?, ?, ?, ?, ? ,?)',
-                [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.genre, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
+                'INSERT INTO vinyls (title, artist, label, year, category_id, image, condition, isFavourite) VALUES (?, ?, ?, ?, ?, ?, ? ,?)',
+                [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.category_id, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
             )
             Alert.alert("Vinyl added successfully!");
             uploadVinyls(); 
@@ -62,8 +65,8 @@ export const VinylManager = ({children}) =>{
     const setVinyl = async (updatedVinyl) => {
         try{
             await db.runAsync(
-                'UPDATE vinyls SET title = ?, artist = ?, label = ?, year = ?, genre = ?, image = ?, condition = ?, isFavourite = ? WHERE id = ?',
-                [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.genre, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
+                'UPDATE vinyls SET title = ?, artist = ?, label = ?, year = ?, category_id = ?, image = ?, condition = ?, isFavourite = ? WHERE id = ?',
+                [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.category_id, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
             )
             Alert.alert("Vinyl updated successfully!");
             uploadVinyls(); 
