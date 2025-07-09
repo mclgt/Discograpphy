@@ -10,7 +10,8 @@ import CategoryAdder from './CategoryAdder.js';
 import { VinylContext } from './VinylManager.js';
 const CategoryScreen=({})=>{
     const [modalVisible, setModalVisible]=useState(false);
-    const {categories,isLoading,uploadCategories}=useContext(CategoryContext);
+    const {categories,isLoading,uploadCategories,removeCategory}=useContext(CategoryContext);
+    console.log('CategoryContext:', {categories, isLoading, uploadCategories, removeCategory});
     const {vinyls,removeVinyl}=useContext(VinylContext);
      console.log("Categorie lette dal DB:", categories);
      if (isLoading){
@@ -26,8 +27,8 @@ const CategoryScreen=({})=>{
             </View>
             <View style={styles.titolominore}>
                 <Text style={styles.testo}>CATEGORIES</Text>
-            <View style={styles.buttons}>
-                <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+            <View style={styles.addButton}>
+                <TouchableOpacity style={styles.addButtontext} onPress={() => setModalVisible(true)}>
                         <Text style={styles.addButtontext}>Add Categories</Text>
                 </TouchableOpacity>
             </View>
@@ -37,10 +38,10 @@ const CategoryScreen=({})=>{
                 data={categories}
                 renderItem={({item})=>(
                 <View>
-                    <Text style={styles.testo}>{item.genre}</Text>
                     <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
-                        <Text style={styles.addButtontext}>Add Categories</Text>
+                    <Text style={styles.testo}>{item.genre}</Text>
+                    <TouchableOpacity style={styles.bottone} onPress={()=>removeCategory(item.id)} >
+                        <Ionicons name="trash-outline" size={28} color="#ff3131" />
                     </TouchableOpacity>
                     </View>
                     <FlatList

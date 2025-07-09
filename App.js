@@ -7,6 +7,7 @@ import VinylManager from './VinylManager';
 import { SQLiteProvider } from 'expo-sqlite';
 import CategoryManager from './CategoryManager';
 import { NavigationContainer } from '@react-navigation/native';
+import CategoryScreen from './CategoryScreen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -40,7 +41,7 @@ export default function App() {
                   image TEXT,
                   condition TEXT,
                   isFavourite INTEGER DEFAULT 0,
-                  FOREIGN KEY (category_id) REFERENCES category(id) 
+                  FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL
               );
 
           `);
@@ -71,11 +72,11 @@ export default function App() {
       }}options={{useNewConnection: false}}
     >
     
-    <CategoryManager >
-      <VinylManager>
+    <VinylManager >
+      <CategoryManager>
          <AppNavigator/>
-      </VinylManager>
-    </CategoryManager>
+      </CategoryManager>
+    </VinylManager>
     </SQLiteProvider>
 
   );
