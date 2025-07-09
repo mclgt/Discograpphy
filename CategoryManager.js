@@ -11,6 +11,7 @@ const CategoryManager = ({children}) =>{
     const db = useSQLiteContext();
     const uploadCategories = async () =>{
         try{
+            setLoading(true);
             const results = await db.getAllAsync(
                 'SELECT * FROM category ORDER BY id'
             );

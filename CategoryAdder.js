@@ -6,10 +6,10 @@ import { CategoryContext } from './CategoryManager.js';
 
 const CategoryAdder = ({visible, onClose}) =>{
     const {addCategory} = useContext(CategoryContext);
-    const [name, setName]=useState("");
+    const [genre, setGenre]=useState("");
 
     const validation = () => {
-        if(!name.trim()){
+        if(!genre.trim()){
             alert("Nome obbligatorio!"); 
             return false;
         }
@@ -18,13 +18,13 @@ const CategoryAdder = ({visible, onClose}) =>{
     };
     return (
     <Modal visible={visible} transparent animationType="fade">
-      <View styles={styles.overlay}>
-        <View styles={styles.modalContent}>
+      <View style={styles.overlay}>
+        <View style={styles.modalContent}>
           <TextInput
             placeholderTextColor="white"
             placeholder="Nuova categoria"
-            value={name}
-            onChangeText={setName}
+            value={genre}
+            onChangeText={setGenre}
             style={styles.testo}
           />
           <View style={styles.buttons}>

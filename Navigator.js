@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 
 export default function AppNavigator() {
   return (
-    <NavigationContainer>
+   <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
@@ -33,6 +33,6 @@ export default function AppNavigator() {
         <Tab.Screen name="My stats" component={StatsScreen} />
         <Tab.Screen name="Categories" component={CategoryScreen} />
       </Tab.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
   );
 }
