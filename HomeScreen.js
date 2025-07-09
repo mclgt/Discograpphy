@@ -48,7 +48,7 @@ const HomeScreen=({})=>{
                 <FlatList
                     data={vinyls}
                     renderItem={({item})=>(
-                        <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre }}
+                        <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre, isFavourite:item.isFavourite }}
                             onDelete={() => removeVinyl(item.id)}/>
                     )}
                     ListEmptyComponent={<Text style={styles.noVinyls}>No vinyls found</Text>}
