@@ -29,8 +29,8 @@ const CategoryAdder = ({visible, onClose}) =>{
           />
           <View style={styles.buttons}>
             <Button title="Aggiungi" onPress={()=>{if (validation()){
-              addCategory(name);
-              setName("");
+              addCategory(genre);
+              setGenre("");
               onClose();
             }}} color="darkred" />
             <Button title="Annulla" onPress={onClose} color="grey" />
