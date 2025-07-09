@@ -19,7 +19,7 @@ const CategoryScreen=({})=>{
             )
     }
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
+        <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
@@ -33,38 +33,36 @@ const CategoryScreen=({})=>{
             </View>
             </View>
             <View style={{marginBottom: 20}}>
-            <FlatList 
-                data={categories}
-                renderItem={({item})=>(
-                <View>
-                    <Text style={styles.testo}>{item.genre}</Text>
-                    <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
-                        <Text style={styles.addButtontext}>Add Categories</Text>
-                    </TouchableOpacity>
-                    </View>
-                    <FlatList
-                        data={vinyls.filter(v=>v.category_id === item.id)}
-                        renderItem={({item: vinyl})=>(
-                            <Vinyl vinyl={vinyl} onDelete={()=> removeVinyl(vinyl.id)}/>
+                <FlatList 
+                    data={categories}
+                    renderItem={({item})=>(
+                    <View>
+                        <Text style={styles.testo}>
+                            <Ionicons name='musical-note-outline' size={24} color='#ff3131' />
+                            {item.genre}
+                        </Text>
+                        <FlatList
+                            data={vinyls.filter(v=>v.category_id === item.id)}
+                            renderItem={({item: vinyl})=>(
+                                <Vinyl vinyl={vinyl} onDelete={()=> removeVinyl(vinyl.id)}/>
+                            )}
+                            keyExtractor={(v)=>v.id.toString()}
+                            horizontal
+                            />
+                        </View>
                         )}
-                        keyExtractor={(v)=>v.id.toString()}
-                        horizontal
-                        />
-                    </View>
-                    )}
-                keyExtractor={(item) => item.id.toString()}
-                showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={() => <View style={{ width: 10 }}/>}
-                contentContainerStyle={{ paddingHorizontal: 10 }}
-            />
+                    keyExtractor={(item) => item.id.toString()}
+                    showsHorizontalScrollIndicator={false}
+                    ItemSeparatorComponent={() => <View style={{ width: 10 }}/>}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                />
             </View>
              <CategoryAdder
             visible={modalVisible}
             onClose={()=>setModalVisible(false)}
             /> 
-        </SafeAreaView>
-          )
+        </ScrollView>
+    )
 };
 
 export default CategoryScreen; 
