@@ -6,6 +6,7 @@ import AppNavigator from './Navigator';
 import VinylManager from './VinylManager';
 import { SQLiteProvider } from 'expo-sqlite';
 import CategoryManager from './CategoryManager';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -14,8 +15,8 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return 
-    (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Caricamento font...</Text>
     </View>
     );
@@ -25,6 +26,7 @@ export default function App() {
     <SQLiteProvider 
       databaseName='vinyls.db'
       onInit={async (db) => {
+        try{
           await db.execAsync( 'PRAGMA journal_mode= WAL;');
           await db.execAsync('DROP TABLE IF EXISTS vinyls;');
           await db.execAsync(
@@ -46,27 +48,33 @@ export default function App() {
           await db.execAsync(
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  genre TEXT NOT NULL
+                  genre TEXT
               );`
             );
            const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
           console.log("📊 Schema category:", tableInfo);
-           const categoriess = [
+           const categories = [
          "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
     ]
-        for (const genre of categoriess){
-          console.log("Inserting genre:", genre);
-          await db.execAsync(
-              'INSERT INTO category (genre) VALUES (?)', [genre]
-          );
+        for (const newgenre of categories){
+          if (newgenre && newgenre.trim() !== "") {
+          console.log("Inserting genre:", newgenre);
+          await db.runAsync(
+              'INSERT INTO category (genre) VALUES (?)', [newgenre.trim()]
+          )
         }
+        }
+      } catch (error) {
+    console.error("SQLite Init Error:", error);
+      }
       }}options={{useNewConnection: false}}
     >
-      <CategoryManager />
-      <VinylManager >
-        <AppNavigator/>
+    
+    <CategoryManager >
+      <VinylManager>
+         <AppNavigator/>
       </VinylManager>
-
+    </CategoryManager>
     </SQLiteProvider>
 
   );

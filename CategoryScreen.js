@@ -30,9 +30,7 @@ const CategoryScreen=({})=>{
                 </TouchableOpacity>
             </View>
             </View>
-            <View style={styles.container}>
-           
-
+            <View>
             <FlatList 
                 data={categories}
                 renderItem={({item})=>(
@@ -41,7 +39,6 @@ const CategoryScreen=({})=>{
                 keyExtractor={(item) => item.id.toString()}
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={() => <View style={{ width: 10 }}/>}
-
                 contentContainerStyle={{ paddingHorizontal: 10 }}
             />
             </View>
