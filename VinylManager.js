@@ -38,6 +38,8 @@ export const VinylManager = ({children}) =>{
     },[db])
 
     const addVinyl = async (newVinyl) => {
+        console.log("Aggiungo vinile:", newVinyl);
+
        try{
             await db.runAsync(
                 'INSERT INTO vinyls (title, artist, label, year, category_id, image, condition, isFavourite) VALUES (?, ?, ?, ?, ?, ?, ? ,?)',
@@ -99,12 +101,16 @@ export const VinylManager = ({children}) =>{
         }
     };
     const searchVinyls= async (string)=>{
-        const stringSearch = '${string}$'
+        const stringSearch = `%${string}%`
+        console.log("Cerco:", string, "=> wildcard:", `%${string}%`);
+
         try{
-        const results= await db.allAsync(
-                'SELECT * FROM vinyls JOIN category ON vinyls.category_id=category.id WHERE vinyls.title LIKE ? OR vinyls.artist LIKE ? OR category.genre LIKE ?',
+        const results= await db.getAllAsync(
+                'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE vinyls.title LIKE ? OR vinyls.artist LIKE ? OR category.genre LIKE ?',
                 [stringSearch,stringSearch,stringSearch]
             );
+            console.log("Risultati ricerca:", results);
+
             setVinylsSearched(results);
         }
         catch(error){

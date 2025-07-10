@@ -10,7 +10,7 @@ import Vinyl from './Vinyl.js';
 const SearchScreen=({})=>{
     const [stringSearch, setStringSearch]=useState('');
     const [open,setOpen]=useState(false);
-    const {vinylsSearched,searchVinyls}=useContext(VinylContext);
+    const {vinylsSearched,searchVinyls,removeVinyl}=useContext(VinylContext);
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
@@ -47,14 +47,21 @@ const SearchScreen=({})=>{
                             </View>
                         )
                     }
-                    <SectionList>
-                        data={searchVinyls}
+                    
+                </View>
+                </View>
+                <FlatList
+                        data={vinylsSearched}
                         renderItem={({item})=>(
                             <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre }} onDelete={() => removeVinyl(item.id)}/>
                             )}
-                    </SectionList>
-                </View>
-                </View>
+                        ListEmptyComponent={<Text style={styles.noVinyls}>No vinyls found</Text>}
+                        keyExtractor={(item) => item.id.toString()}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        ItemSeparatorComponent={() => <View style={{ width: 10 }}/>}
+                        contentContainerStyle={{ paddingHorizontal: 10 }}
+                    />
         </ScrollView>
     );
 };
