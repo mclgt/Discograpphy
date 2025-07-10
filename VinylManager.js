@@ -8,6 +8,7 @@ export const VinylContext = createContext();
 export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
     const [isLoading, setIsLoading] = useState(false); 
+    const [vCount, setVCount] = useState(0);
     const db = useSQLiteContext();
 
     const uploadVinyls = async () =>{
@@ -39,6 +40,7 @@ export const VinylManager = ({children}) =>{
             )
             Alert.alert("Vinyl added successfully!");
             uploadVinyls(); 
+            setVCount(vCount+1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error adding vinyl", "Please try again later.");
@@ -53,6 +55,7 @@ export const VinylManager = ({children}) =>{
             )
             Alert.alert("Vinyl removed successfully!");
             uploadVinyls(); 
+            setVCount(vCount-1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error removing vinyl", "Please try again later.");
@@ -74,7 +77,7 @@ export const VinylManager = ({children}) =>{
     };
 
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount}}>
             {children}
         </VinylContext.Provider>
     );

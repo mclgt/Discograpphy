@@ -5,9 +5,14 @@ import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Vinyl from './Vinyl.js';
 import styles from './styles/StatsScreenStyle.js';
+import { VinylContext } from './VinylManager.js';
+import { PieChart } from "react-native-chart-kit";
+
 
 
 const StatsScreen=({})=>{
+    const {count} = useContext(VinylContext);
+
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
@@ -21,7 +26,7 @@ const StatsScreen=({})=>{
             <View style={styles.congratsbox}>
                 <Text style={styles.testo}>CONGRATS</Text>
                 <Ionicons name="trophy-outline" size={24} color="#ff3131" alignItem></Ionicons>
-                <Text style={styles.testo}>You have a ton of vinyls in your collection</Text>
+                <Text style={styles.testo}>You have {count} vinyls in your collection</Text>
             </View>
             </View>
             <View style={styles.riga}>
