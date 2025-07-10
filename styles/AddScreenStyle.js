@@ -116,12 +116,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#add8e6',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   landscape: {
     flex: 1,
     backgroundColor: '#90ee90',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection:'column',
   },
 });
 export default styles;

@@ -8,13 +8,12 @@ import { useRoute } from '@react-navigation/native';
 import { VinylContext } from './VinylManager.js';
 import {Picker} from '@react-native-picker/picker';
 import { CategoryContext } from './CategoryManager.js';
-import useOrientation from './useOrientation.js';
+
 
 
 
 const AddScreen=({})=>{
     const route = useRoute(); 
-    const orientation = useOrientation();
     const receivedVinyl = route.params?.vinyl
     const {addVinyl,setVinyl}=useContext(VinylContext)
     const [title, setTitle] = useState("")
@@ -123,7 +122,7 @@ const AddScreen=({})=>{
 
 
     return (
-    <SafeAreaView style={orientation === 'PORTRAIT' ? styles.portrait : styles.landscape}>
+    <SafeAreaView style={{flex:1}}>
         <KeyboardAvoidingView style={{flex:1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
             <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }} keyboardShouldPersistTaps='handled'>
                 <View style={styles.header}>

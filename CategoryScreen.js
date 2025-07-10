@@ -8,9 +8,7 @@ import Vinyl from './Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
 import CategoryAdder from './CategoryAdder.js';
 import { VinylContext } from './VinylManager.js';
-import useOrientation from './useOrientation.js';
 const CategoryScreen=({})=>{
-    const orientation=useOrientation()
     const [modalVisible, setModalVisible]=useState(false);
     const {categories,isLoading,uploadCategories,removeCategory}=useContext(CategoryContext);
     const {vinyls,removeVinyl}=useContext(VinylContext);
@@ -21,7 +19,7 @@ const CategoryScreen=({})=>{
             )
     }
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
+        <ScrollView style={{backgroundColor: '#f1f1f1'}}>
             <View style={styles.header}>
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>

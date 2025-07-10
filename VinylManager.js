@@ -9,6 +9,7 @@ export const VinylContext = createContext();
 export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [vinylsSearched, setVinylsSearched]=useState([]);
     const {uploadCategories}=useContext(CategoryContext);
     const db = useSQLiteContext();
 
@@ -97,12 +98,25 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Error updating vinyl", "Please try again later.");
         }
     };
-
+    const searchVinyls= async (string)=>{
+        const stringSearch = '${string}$'
+        try{
+        const results= await db.allAsync(
+                'SELECT * FROM vinyls JOIN category ON vinyls.category_id=category.id WHERE vinyls.title LIKE ? OR vinyls.artist LIKE ? OR category.genre LIKE ?',
+                [stringSearch,stringSearch,stringSearch]
+            );
+            setVinylsSearched(results);
+        }
+        catch(error){
+            console.error(error); 
+        }
+    };
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls,vinylsSearched,searchVinyls}}>
             {children}
         </VinylContext.Provider>
     );
+
 }
 
 export default VinylManager;
