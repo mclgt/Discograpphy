@@ -51,6 +51,7 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Vinyl added successfully!");
             setVCount(vCount+1);
             uploadVinyls(); 
+            setVCount(vCount+1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error adding vinyl", "Please try again later.");
