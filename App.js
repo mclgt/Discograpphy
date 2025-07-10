@@ -10,7 +10,8 @@ import styles from './styles/Style.js'
 export default function App() {
   const [fontsLoaded] = useFonts({
     'Monoton': require('./assets/Fonts/Monoton-Regular.ttf'),
-    'Fredoka': require('./assets/Fonts/Fredoka.ttf')
+    'Fredoka': require('./assets/Fonts/Fredoka.ttf'),
+    'FredokaMedium': require('./assets/Fonts/FredokaMedium.ttf')
   });
 
   if (!fontsLoaded) {
@@ -39,44 +40,48 @@ export default function App() {
                   image TEXT,
                   condition TEXT,
                   isFavourite INTEGER DEFAULT 0,
+                  dateAdded TEXT DEFAULT (DATE('now')),
                   FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL ON UPDATE CASCADE
               );
 
           `);
           await db.execAsync(
-              `DROP TABLE IF EXISTS category;`);
+              `DROP TABLE IF EXISTS category;`
+          );
           await db.execAsync(
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   genre TEXT NOT NULL UNIQUE,
                   vinylNumber INTEGER DEFAULT 0
               );`
-            );
+          );
           const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
           console.log("📊 Schema category:", tableInfo);
-           const categories = [
-         "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
-    ]
+          const categories = [
+          "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
+          ];
+        console.log("Inserting categories:", categories);
         for (const newgenre of categories){
           if (newgenre && newgenre.trim() !== "") {
-          console.log("Inserting genre:", newgenre);
-          await db.runAsync(
-              'INSERT INTO category (genre) VALUES (?)', [newgenre.trim()]
-          )
-        }
+            console.log("Inserting genre:", newgenre);
+            await db.runAsync(
+                'INSERT INTO category (genre) VALUES (?)', [newgenre.trim()]
+            )
+          }
         }
       } catch (error) {
-    console.error("SQLite Init Error:", error);
+        console.error("SQLite Init Error:", error);
       }
-      }}options={{useNewConnection: false}}
-    >
+    }
+  }options={{useNewConnection: false}}
+  >
     
     <CategoryManager >
       <VinylManager>
          <AppNavigator/>
       </VinylManager>
     </CategoryManager>
-    </SQLiteProvider>
+  </SQLiteProvider>
 
   );
 }

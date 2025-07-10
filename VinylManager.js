@@ -10,6 +10,7 @@ export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const {uploadCategories}=useContext(CategoryContext);
+    const [vCount, setVCount] = useState(0);
     const db = useSQLiteContext();
 
     const uploadVinyls = async () =>{
@@ -48,6 +49,7 @@ export const VinylManager = ({children}) =>{
             )
             await uploadCategories();
             Alert.alert("Vinyl added successfully!");
+            setVCount(vCount+1);
             uploadVinyls(); 
         }catch (error){
             console.error(error); 
@@ -73,6 +75,7 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Vinyl removed successfully!");
             await uploadCategories();
             uploadVinyls(); 
+            setVCount(vCount-1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error removing vinyl", "Please try again later.");
@@ -98,8 +101,21 @@ export const VinylManager = ({children}) =>{
         }
     };
 
+    const getOldestVinyls = async () =>{
+        try{
+            const topOldest = await db.getAllAsync(
+                'SELECT * FROM vinyls WHERE year != "" AND year IS NOT NULL ORDER BY year ASC LIMIT 7'
+            )
+            return topOldest;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching oldest vinyls","Please try again later.");
+            return [];
+        }
+    }
+
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount, getOldestVinyls}}>
             {children}
         </VinylContext.Provider>
     );

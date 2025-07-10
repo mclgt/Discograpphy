@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
     {
         flexDirection: 'column',
         alignItems:'center',
-        justifyContent:'center',
-        padding: 10,
+        justifyContent:'space-evenly',
+        padding: 5,
         width: 200,              
         height: 200,
         backgroundColor: '#fff',
         borderRadius: 10,
-        marginVertical: 10,
+        marginVertical: 5,
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         paddingHorizontal: 10,
         marginVertical: 10,
+    },
+    smalltitle:{
+        fontSize: 18,
+        fontFamily: 'FredokaMedium',
+        color:'#333',
+        marginRight: 10,
     }
 });
 export default styles;
