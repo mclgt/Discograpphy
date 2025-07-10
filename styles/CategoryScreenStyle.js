@@ -9,6 +9,30 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
     },
+    overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+    justifyContent: 'center',              
+    alignItems: 'center',                
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 12,
+    width: '80%',
+    elevation: 5,
+  },
+    container: {
+        flexdirection: 'row',
+        padding: 10,
+        backgroundColor: '#dfdfdf',
+        borderRadius: 10,
+        marginVertical: 10,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+    },
     logo: {
         width: 80,
         height: 80,
@@ -25,16 +49,26 @@ const styles = StyleSheet.create({
     },
     titolominore:{
         flexDirection: 'row',
-        paddingHorizontal: 10,
+        justifyContent: 'space-between',
+        alignItems:'center',
+        paddingHorizontal: 16,
         marginVertical: 10,
     },
     testo:{
         fontSize: 18,
         fontFamily: 'Fredoka',
         color:'#333',
-        textAlign:'center',
+        textAlign:'left',
+        justifyContent: 'space-between',
     },
-    goBackButton: {
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 2,
+        padding: 5,
+    },
+     addButton: {
         padding: 10,
         backgroundColor: '#ff3131',
         borderRadius: 5,
@@ -42,7 +76,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
-        marginLeft: 'auto',
+    },
+    addButtontext: {
+        color: '#fff',
+        fontFamily: 'Fredoka',
     },
     riga:
     {
