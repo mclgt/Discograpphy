@@ -4,6 +4,7 @@ import AppNavigator from './Navigator';
 import VinylManager from './VinylManager';
 import { SQLiteProvider } from 'expo-sqlite';
 import CategoryManager from './CategoryManager';
+import styles from './styles/Style.js'
 
 
 export default function App() {
@@ -15,7 +16,7 @@ export default function App() {
   if (!fontsLoaded) {
     return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Caricamento font...</Text>
+      <Text style={styles.minorTitle}>Loading fonts...</Text>
     </View>
     );
   }
