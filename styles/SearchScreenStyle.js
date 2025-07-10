@@ -14,6 +14,18 @@ const styles = StyleSheet.create({
         height: 80,
         marginRight: 10,
     },
+     portrait: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  landscape: {
+    flex: 1,
+    backgroundColor: '#90ee90',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
     headerTitle: {
         fontSize: 20,
         fontFamily: 'Monoton',

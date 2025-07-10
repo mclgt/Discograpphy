@@ -99,6 +99,18 @@ const styles = StyleSheet.create({
         padding: 20,
         textAlign: 'center',
     },
+     portrait: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  landscape: {
+    flex: 1,
+    backgroundColor: '#90ee90',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
 }); 
 export default styles;

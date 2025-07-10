@@ -8,7 +8,9 @@ import Vinyl from './Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
 import CategoryAdder from './CategoryAdder.js';
 import { VinylContext } from './VinylManager.js';
+import useOrientation from './useOrientation.js';
 const CategoryScreen=({})=>{
+    const orientation=useOrientation()
     const [modalVisible, setModalVisible]=useState(false);
     const {categories,isLoading,uploadCategories,removeCategory}=useContext(CategoryContext);
     const {vinyls,removeVinyl}=useContext(VinylContext);

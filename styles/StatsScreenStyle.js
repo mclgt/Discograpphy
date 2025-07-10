@@ -66,6 +66,18 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         paddingHorizontal: 10,
         marginVertical: 10,
-    }
+    },
+     portrait: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  landscape: {
+    flex: 1,
+    backgroundColor: '#90ee90',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 export default styles;
