@@ -33,32 +33,14 @@ const CategoryScreen=({})=>{
             </View>
             </View>
             <View style={{marginBottom: 20}}>
-<<<<<<< HEAD
-                <FlatList 
-                    data={categories}
-                    renderItem={({item})=>(
-                    <View>
-                        <Text style={styles.testo}>
-                            <Ionicons name='musical-note-outline' size={24} color='#ff3131' />
-                            {item.genre}
-                        </Text>
-                        <FlatList
-                            data={vinyls.filter(v=>v.category_id === item.id)}
-                            renderItem={({item: vinyl})=>(
-                                <Vinyl vinyl={vinyl} onDelete={()=> removeVinyl(vinyl.id)}/>
-                            )}
-                            keyExtractor={(v)=>v.id.toString()}
-                            horizontal
-                            />
-                        </View>
-=======
             <FlatList 
                 data={categories}
+                scrollEnabled={false}
                 renderItem={({item})=>(
                 <View>
                     <View style={styles.buttons}>
                     <Text style={styles.testo}>{item.genre}</Text>
-                    <Text style={styles.testo}>{item.numeroVinili}</Text>
+                    <Text style={styles.testo}>{item.vinylNumber}</Text>
                     <TouchableOpacity style={styles.bottone} onPress={()=>removeCategory(item.id)} >
                         <Ionicons name="trash-outline" size={28} color="#ff3131" />
                     </TouchableOpacity>
@@ -67,17 +49,19 @@ const CategoryScreen=({})=>{
                         data={vinyls.filter(v=>v.category_id === item.id)}
                         renderItem={({item: vinyl})=>(
                             <Vinyl vinyl={vinyl} onDelete={()=> removeVinyl(vinyl.id)}/>
->>>>>>> 9145af83e7504079f5bd9be7d24410443baa1680
                         )}
                     keyExtractor={(item) => item.id.toString()}
                     showsHorizontalScrollIndicator={false}
+                    horizontal={true}
                     ItemSeparatorComponent={() => <View style={{ width: 10 }}/>}
                     contentContainerStyle={{ paddingHorizontal: 10 }}
-                />
+                    />
+                </View>
+                )}/>
             </View>
-             <CategoryAdder
-            visible={modalVisible}
-            onClose={()=>setModalVisible(false)}
+            <CategoryAdder
+                visible={modalVisible}
+                onClose={()=>setModalVisible(false)}
             /> 
         </ScrollView>
     )

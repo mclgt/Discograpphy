@@ -1,13 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
-import AppLoading from 'expo-app-loading';
 import AppNavigator from './Navigator';
 import VinylManager from './VinylManager';
 import { SQLiteProvider } from 'expo-sqlite';
 import CategoryManager from './CategoryManager';
-import { NavigationContainer } from '@react-navigation/native';
-import CategoryScreen from './CategoryScreen';
+
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -41,7 +38,7 @@ export default function App() {
                   image TEXT,
                   condition TEXT,
                   isFavourite INTEGER DEFAULT 0,
-                  FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL
+                  FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL ON UPDATE CASCADE
               );
 
           `);
@@ -51,7 +48,7 @@ export default function App() {
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   genre TEXT NOT NULL UNIQUE,
-                  numeroVinili INTEGER DEFAULT 0
+                  vinylNumber INTEGER DEFAULT 0
               );`
             );
           const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");

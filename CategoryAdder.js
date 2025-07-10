@@ -21,8 +21,8 @@ const CategoryAdder = ({visible, onClose}) =>{
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
           <TextInput
-            placeholderTextColor="white"
-            placeholder="Nuova categoria"
+            placeholderTextColor="black"
+            placeholder="Insert category name..."
             value={genre}
             onChangeText={setGenre}
             style={styles.testo}
@@ -32,8 +32,8 @@ const CategoryAdder = ({visible, onClose}) =>{
               addCategory(genre);
               setGenre("");
               onClose();
-            }}} color="darkred" />
-            <Button title="Annulla" onPress={onClose} color="grey" />
+            }}} color="red" />
+            <Button title="Annulla" onPress={onClose} color="gray" />
           </View>
         </View>
       </View>
