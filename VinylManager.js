@@ -10,6 +10,7 @@ export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [vinylsSearched, setVinylsSearched]=useState([]);
+    const [vinylsYear,setVinylsYear]=useState([]);
     const {uploadCategories}=useContext(CategoryContext);
     const db = useSQLiteContext();
 
@@ -22,6 +23,21 @@ export const VinylManager = ({children}) =>{
                 ORDER BY vinyls.id DESC;`
             );
             setVinyls(results); 
+        }catch(error){
+            console.error("Database error",error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
+     const uploadVinylsYear = async () =>{
+        try{
+            const results = await db.getAllAsync(
+               `SELECT DISTINCT vinyls.year 
+                FROM vinyls
+                ORDER BY vinyls.year;`
+            );
+            setVinylsYear(results); 
+            console.log(vinylsYear);
         }catch(error){
             console.error("Database error",error);
         }finally{
@@ -50,6 +66,7 @@ export const VinylManager = ({children}) =>{
                 [newVinyl.category_id]
             )
             await uploadCategories();
+            await uploadVinylsYear();
             Alert.alert("Vinyl added successfully!");
             uploadVinyls(); 
         }catch (error){
@@ -93,6 +110,7 @@ export const VinylManager = ({children}) =>{
                 [updatedVinyl.category_id]
             )
             await uploadCategories();
+            await uploadVinylsYears();
             Alert.alert("Vinyl updated successfully!");
             uploadVinyls(); 
         }catch (error){
@@ -118,7 +136,7 @@ export const VinylManager = ({children}) =>{
         }
     };
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls,vinylsSearched,searchVinyls}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls,vinylsSearched,searchVinyls,vinylsYear}}>
             {children}
         </VinylContext.Provider>
     );

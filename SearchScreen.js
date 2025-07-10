@@ -1,16 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
+import { Picker } from '@react-native-picker/picker';
 import { ScrollView,StyleSheet, Text,TextInput, View, Button, FlatList, Switch, SafeAreaView,Image, SectionList} from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 import styles from './styles/SearchScreenStyle.js';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { VinylContext } from './VinylManager.js';
 import Vinyl from './Vinyl.js';
-
+import { CategoryContext } from './CategoryManager.js';
 const SearchScreen=({})=>{
+    const {categories}=useContext(CategoryContext);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(-1)
     const [stringSearch, setStringSearch]=useState('');
-    const [open,setOpen]=useState(false);
-    const {vinylsSearched,searchVinyls,removeVinyl}=useContext(VinylContext);
+    const [visible,setVisible]=useState(false);
+    const [selectedYear, setSelectedYear]=useState(-1)
+    const [selectedCondition, setCondition] = useState(-1)
+    const {vinylsSearched,searchVinyls,removeVinyl,vinylsYear}=useContext(VinylContext);
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
@@ -23,31 +27,55 @@ const SearchScreen=({})=>{
                     <Ionicons name="search-outline" size={24} color="#ffff" />
                 </TouchableOpacity>
                 <View style={{position:'relative'}}>
-                <TouchableOpacity style={styles.filterButton} onPress={() => setOpen(!open)}>
+                <TouchableOpacity style={styles.filterButton} onPress={() => setVisible(true)} >
                     <Ionicons name="funnel-outline" size={24} color="#ffff" />
                 
                 </TouchableOpacity>
-                    {
-                        open && (
-                            <View style={{
+                <Modal visible={visible} transparent={true} animationType="fade" >
+                <View style={{
                             position: 'absolute',
-                            top: 50,
-                            left:0,
+                            top: 160,
+                            left:230,
                             backgroundColor: '#fff',
                             borderWidth: 1,
                             borderColor: '#ccc',
                             borderRadius: 6,
                             padding:1,
-                            zIndex: 10,
-                            width:300,
-  }}>
-                            <Text style={{paddingVertical:5}}>Anno</Text>
-                            <Text style={{paddingVertical: 5}}>Genere</Text>
-                            <Text style={{paddingVertical: 5}}>Condizione</Text>
-                            </View>
-                        )
-                    }
-                    
+                            elevation:10,
+                            width:150,
+                        }}>
+                        <Picker
+                            selectedValue={selectedYear}
+                            onValueChange={(itemValue)=>{setSelectedYear(itemValue);setVisible(false)}}
+                            mode="dropdown"
+                        >
+                            <Picker.Item label="Year" value={-1}/>
+                            {vinylsYear.map(year=>(
+                                <Picker.Item label={year.year} value={year.id} key={year.id}/>
+                                
+                            ))}
+                        </Picker>
+                        <Picker
+                            selectedValue={selectedCategoryId}
+                            onValueChange={(itemValue)=>{setSelectedCategoryId(itemValue);setVisible(false)}}
+                            mode="dropdown"
+                        >
+                            <Picker.Item label="Genre" value={-1}/>
+                            {categories.map(cat=>(
+                                <Picker.Item label={cat.genre} value={cat.id} key={cat.id}/>
+                                
+                            ))}
+                        </Picker>
+                        <Picker selectedValue={selectedCondition} onValueChange={(itemValue)=> setCondition(itemValue)}>
+                            <Picker.Item label="Condition" value={-1}/>
+                            <Picker.Item label="Perfect conditions" value="Perfect"/>
+                            <Picker.Item label="Almost Perfect" value="Almost Perfect"/>
+                            <Picker.Item label="Well cared for" value="Well cared"/>
+                            <Picker.Item label="Used" value="Used"/>
+                            <Picker.Item label="Barely playable" value="Barely playable"/>
+                        </Picker>
+                        </View>
+                    </Modal>
                 </View>
                 </View>
                 <FlatList
