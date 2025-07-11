@@ -29,13 +29,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 10,
     },
-    centeredrow:{
-        flexDirection: 'row',
-        justifyContent:'center',
-        paddingHorizontal: 10,
-        marginVertical: 10,
-        alignItems:'center'
-    },
     specedrow: {
         flexDirection: 'row',
         justifyContent:'space-between',
@@ -103,9 +96,22 @@ const styles = StyleSheet.create({
     noVinyls:{
         fontSize: 18,
         fontFamily: 'Fredoka',
-        padding: 20,
+        paddingLeft: 100,
         textAlign: 'center',
     },
+    biggerTitle:{
+        fontSize: 25,
+        fontFamily: 'FredokaSemiBold',
+        color:'#333',
+        marginVertical: 10,
+    },    
+    centeredrow:{
+        flexDirection: 'row',
+        justifyContent:'center',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        alignItems:'center'
+    }
 
 }); 
 export default styles;

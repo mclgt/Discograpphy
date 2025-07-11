@@ -21,8 +21,8 @@ const HomeScreen=({})=>{
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
-            <View style={styles.row}>
-                <Text style={styles.minorTitle}>RECENTLY ADDED</Text>
+            <View style={styles.centeredrow}>
+                <Text style={styles.biggerTitle}>RECENTLY ADDED</Text>
                 <Ionicons name='musical-note-outline' size={24} color='#ff3131' />
             </View>
             <View>
@@ -32,7 +32,9 @@ const HomeScreen=({})=>{
                         <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre, isFavourite:item.isFavourite }}
                             onDelete={() => removeVinyl(item.id)}/>
                     )}
-                    ListEmptyComponent={<Text style={styles.noVinyls}>No vinyls found</Text>}
+                    ListEmptyComponent={
+                            <Text style={styles.noVinyls}>No vinyls found</Text>
+                    }
                     keyExtractor={(item) => item.id.toString()}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
@@ -40,8 +42,8 @@ const HomeScreen=({})=>{
                     contentContainerStyle={{ paddingHorizontal: 10 }}
                 />
             </View>
-            <View style={styles.row}>
-                <Text style={styles.minorTitle}>YOUR COLLECTION</Text>
+            <View style={styles.centeredrow}>
+                <Text style={styles.biggerTitle}>YOUR COLLECTION</Text>
                 <Ionicons name='musical-notes-outline' size={24} color='#ff3131' />
             </View>
             <View>

@@ -24,11 +24,11 @@ const CategoryScreen=({})=>{
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
-            <View style={styles.titolominore}>
-                <Text style={styles.testo}>CATEGORIES</Text>
+            <View style={styles.row}>
+                <Text style={styles.biggerTitle}>CATEGORIES</Text>
             <View style={styles.addButton}>
                 <TouchableOpacity style={styles.addButtontext} onPress={() => setModalVisible(true)}>
-                        <Text style={styles.addButtontext}>Add Categories</Text>
+                        <Text style={styles.addButtontext}>Add Category</Text>
                 </TouchableOpacity>
             </View>
             </View>
@@ -39,8 +39,8 @@ const CategoryScreen=({})=>{
                 renderItem={({item})=>(
                 <View>
                     <View style={styles.buttons}>
-                    <Text style={styles.testo}>{item.genre}</Text>
-                    <Text style={styles.testo}>{item.vinylNumber}</Text>
+                    <Text style={styles.text}>{item.genre}</Text>
+                    <Text style={styles.text}>{item.vinylNumber}</Text>
                     <TouchableOpacity style={styles.bottone} onPress={()=>removeCategory(item.id)} >
                         <Ionicons name="trash-outline" size={28} color="#ff3131" />
                     </TouchableOpacity>
