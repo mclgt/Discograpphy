@@ -72,6 +72,14 @@ export default function App() {
               UPDATE category set vinylNumber = vinylNumber-1 where id = OLD.category_id;
           END;`
         )
+        await db.execAsync(
+          `CREATE TRIGGER IF NOT EXISTS updateCategory
+          BEFORE DELETE ON vinyls
+          FOR EACH ROW
+          BEGIN
+              UPDATE category set vinylNumber = vinylNumber-1 where id = OLD.category_id;
+          END;`
+        )
       } catch (error) {
     console.error("SQLite Init Error:", error);
       }

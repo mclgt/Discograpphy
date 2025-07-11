@@ -78,18 +78,9 @@ export const VinylManager = ({children}) =>{
 
     const removeVinyl = async (id) => {
        try{
-            const category = await db.getAllAsync(
-                'SELECT category_id FROM vinyls WHERE id = ?',
-                [id]
-            )
-            const categoryId=category[0].category_id;
             await db.runAsync(
                 'DELETE FROM vinyls WHERE id = ?',
                 [id]
-            )
-            await db.runAsync(
-                'UPDATE category set  vinylNumber =  vinylNumber - 1 WHERE id = ?',
-                [categoryId]
             )
             Alert.alert("Vinyl removed successfully!");
             uploadCategories();
