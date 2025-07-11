@@ -63,7 +63,7 @@ export const VinylManager = ({children}) =>{
                 [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.category_id, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
             )
             await db.runAsync(
-                'UPDATE category set  vinylNumber = vinylNumber+1 where id = ?',
+                'UPDATE category set  vinylNumber = vinylNumber + 1 where id = ?',
                 [newVinyl.category_id]
             )
             uploadCategories();
@@ -108,7 +108,7 @@ export const VinylManager = ({children}) =>{
                 [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.category_id, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
             )
             uploadCategories();
-            uploadVinylsYears();
+            uploadVinylsYear();
             Alert.alert("Vinyl updated successfully!");
             uploadVinyls(); 
         }catch (error){
