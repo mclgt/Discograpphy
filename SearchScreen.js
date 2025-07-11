@@ -9,7 +9,7 @@ import Vinyl from './Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
 const SearchScreen=({})=>{
     const {categories}=useContext(CategoryContext);
-    const [selectedCategoryId, setSelectedCategoryId] = useState(-1)
+    const [selectedGenre, setSelectedGenre] = useState(-1)
     const [stringSearch, setStringSearch]=useState('');
     const [visible,setVisible]=useState(false);
     const [selectedYear, setSelectedYear]=useState(-1)
@@ -23,7 +23,7 @@ const SearchScreen=({})=>{
             </View>
             <View style={styles.searchContainer}>
                 <TextInput style={styles.searchInput} placeholder="Search for vinyls..." value={stringSearch} onChangeText={setStringSearch} />
-                <TouchableOpacity style={styles.searchButton} onPress={()=>searchVinyls(stringSearch,selectedYear,selectedCondition,selectedCategoryId)}>
+                <TouchableOpacity style={styles.searchButton} onPress={()=>searchVinyls(stringSearch,selectedYear,selectedCondition,selectedGenre)}>
                     <Ionicons name="search-outline" size={24} color="#ffff" />
                 </TouchableOpacity>
                 <View style={{position:'relative'}}>
@@ -50,17 +50,17 @@ const SearchScreen=({})=>{
                         >
                             <Picker.Item label="Year" value={-1}/>
                             {vinylsYear.map((year)=>(
-                                <Picker.Item label={year.year} value={year.year} key={year.year.toString()}/>
+                                <Picker.Item label={year.year} value={year.year} key={year.id.toString()}/>
                                 
                             ))}
                         </Picker>
                         <Picker
-                            selectedValue={selectedCategoryId}
-                            onValueChange={(itemValue)=>{setSelectedCategoryId(itemValue);setVisible(false)}}
+                            selectedValue={selectedGenre}
+                            onValueChange={(itemValue)=>{setSelectedGenre(itemValue);setVisible(false)}}
                         >
                             <Picker.Item label="Genre" value={-1}/>
                             {categories.map(cat=>(
-                                <Picker.Item label={cat.genre} value={cat.id} key={cat.id}/>
+                                <Picker.Item label={cat.genre} value={cat.genre} key={cat.id}/>
                                 
                             ))}
                         </Picker>

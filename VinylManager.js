@@ -63,7 +63,7 @@ export const VinylManager = ({children}) =>{
                 [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.category_id, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
             )
             await db.runAsync(
-                'UPDATE category set  vinylNumber= vinylNumber+1 where id = ?',
+                'UPDATE category set  vinylNumber = vinylNumber+1 where id = ?',
                 [newVinyl.category_id]
             )
             uploadCategories();
@@ -122,13 +122,13 @@ export const VinylManager = ({children}) =>{
         console.log(string,year,condition,genre);
         let query = 'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE 1=1';
         const params=[];
-        if (string == ""){
-            query += 'AND (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
+        if (string.trim() != ""){
+            query += ' AND (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
             params.push(stringSearch,stringSearch,stringSearch);
         }
         if (year != -1){
             query += ' AND vinyls.year=?';
-            params.push(year);
+            params.push(parseInt(year));
         }
         if (condition != -1){
             query += ' AND vinyls.condition=?';
@@ -139,11 +139,11 @@ export const VinylManager = ({children}) =>{
         params.push(genre);
         }
         
-        const res = await db.runAsync(query,params);
+        const res = await db.getAllAsync(query,params);
         setVinylsSearched(res);
     }
     catch(error){
-        console.log(error);
+        console.error(error);
     }
         
     };
