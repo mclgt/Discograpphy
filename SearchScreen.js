@@ -23,7 +23,7 @@ const SearchScreen=({})=>{
             </View>
             <View style={styles.searchContainer}>
                 <TextInput style={styles.searchInput} placeholder="Search for vinyls..." value={stringSearch} onChangeText={setStringSearch} />
-                <TouchableOpacity style={styles.searchButton} onPress={()=>searchVinyls(stringSearch)}>
+                <TouchableOpacity style={styles.searchButton} onPress={()=>searchVinyls(stringSearch,selectedYear,selectedCondition,selectedCategoryId)}>
                     <Ionicons name="search-outline" size={24} color="#ffff" />
                 </TouchableOpacity>
                 <View style={{position:'relative'}}>
@@ -47,7 +47,6 @@ const SearchScreen=({})=>{
                         <Picker
                             selectedValue={selectedYear}
                             onValueChange={(itemValue)=>{setSelectedYear(itemValue);setVisible(false)}}
-                            mode="dropdown"
                         >
                             <Picker.Item label="Year" value={-1}/>
                             {vinylsYear.map(year=>(
@@ -58,7 +57,6 @@ const SearchScreen=({})=>{
                         <Picker
                             selectedValue={selectedCategoryId}
                             onValueChange={(itemValue)=>{setSelectedCategoryId(itemValue);setVisible(false)}}
-                            mode="dropdown"
                         >
                             <Picker.Item label="Genre" value={-1}/>
                             {categories.map(cat=>(

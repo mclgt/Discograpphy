@@ -52,23 +52,31 @@ export default function App() {
                   vinylNumber INTEGER DEFAULT 0
               );`
             );
-          const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
-          console.log("📊 Schema category:", tableInfo);
            const categories = [
          "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
     ]
         for (const newgenre of categories){
           if (newgenre && newgenre.trim() !== "") {
-          console.log("Inserting genre:", newgenre);
           await db.runAsync(
               'INSERT INTO category (genre) VALUES (?)', [newgenre.trim()]
           )
         }
         }
+        await db.execAsync(
+          `CREATE TRIGGER IF NOT EXISTS uploadNumVinyls
+          AFTER UPDATE OF category_id ON vinyls
+          FOR EACH ROW
+          WHEN OLD.category_id IS NOT NULL AND OLD.category_id<>NEW.category_id
+          BEGIN
+              UPDATE category set vinylNumber = vinylNumber+1 where id = NEW.category_id;
+              UPDATE category set vinylNumber = vinylNumber-1 where id = OLD.category_id;
+          END;`
+        )
       } catch (error) {
     console.error("SQLite Init Error:", error);
       }
       }}options={{useNewConnection: false}}
+      
     >
     
     <CategoryManager >

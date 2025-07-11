@@ -37,7 +37,6 @@ export const VinylManager = ({children}) =>{
                 ORDER BY vinyls.year;`
             );
             setVinylsYear(results); 
-            console.log(vinylsYear);
         }catch(error){
             console.error("Database error",error);
         }finally{
@@ -48,6 +47,7 @@ export const VinylManager = ({children}) =>{
     useEffect(() =>{
         if(db){
             uploadVinyls()
+            uploadVinylsYear()
         } else if (!db){
             console.warn("Database not initialized");
         }
@@ -65,8 +65,8 @@ export const VinylManager = ({children}) =>{
                 'UPDATE category set  vinylNumber= vinylNumber+1 where id = ?',
                 [newVinyl.category_id]
             )
-            await uploadCategories();
-            await uploadVinylsYear();
+            uploadCategories();
+            uploadVinylsYear();
             Alert.alert("Vinyl added successfully!");
             uploadVinyls(); 
         }catch (error){
@@ -91,7 +91,8 @@ export const VinylManager = ({children}) =>{
                 [categoryId]
             )
             Alert.alert("Vinyl removed successfully!");
-            await uploadCategories();
+            uploadCategories();
+            uploadVinylsYear();
             uploadVinyls(); 
         }catch (error){
             console.error(error); 
@@ -105,12 +106,8 @@ export const VinylManager = ({children}) =>{
                 'UPDATE vinyls SET title = ?, artist = ?, label = ?, year = ?, category_id = ?, image = ?, condition = ?, isFavourite = ? WHERE id = ?',
                 [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.category_id, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
             )
-            await db.runAsync(
-                'UPDATE category set  vinylNumber = vinylNumber+1 where id = ?',
-                [updatedVinyl.category_id]
-            )
-            await uploadCategories();
-            await uploadVinylsYears();
+            uploadCategories();
+            uploadVinylsYears();
             Alert.alert("Vinyl updated successfully!");
             uploadVinyls(); 
         }catch (error){
@@ -118,22 +115,25 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Error updating vinyl", "Please try again later.");
         }
     };
-    const searchVinyls= async (string)=>{
+    const searchVinyls= async (string,year,condition,genre)=>{
         const stringSearch = `%${string}%`
-        console.log("Cerco:", string, "=> wildcard:", `%${string}%`);
-
-        try{
-        const results= await db.getAllAsync(
-                'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE vinyls.title LIKE ? OR vinyls.artist LIKE ? OR category.genre LIKE ?',
-                [stringSearch,stringSearch,stringSearch]
-            );
-            console.log("Risultati ricerca:", results);
-
-            setVinylsSearched(results);
+        let query = 'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
+        const params = [stringSearch,stringSearch,stringSearch];
+        if (year){
+            sql += 'AND year=?';
+            params.push(year);
         }
-        catch(error){
-            console.error(error); 
+        if (condition){
+            sql += 'AND condition=?';
+            params.push(condition);
         }
+        if (genre){
+           sql += 'AND category.genre=?'
+           params.push(genre);
+        }
+        const res = await db.runAsync(query,params);
+        setVinylsSearched(res);
+        
     };
     return (
         <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls,vinylsSearched,searchVinyls,vinylsYear}}>
