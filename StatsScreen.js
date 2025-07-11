@@ -29,26 +29,27 @@ const StatsScreen=({})=>{
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
-            <View>
-                <Text style={styles.biggerTitle}>MY STATS</Text>
-            </View>
             <View style={{ alignItems: 'center', marginVertical: 20 }}>
             <View style={styles.congratsbox}>
-                <Text style={styles.headerTitle}>CONGRATS</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Ionicons name="medal-outline" size={24} color='#ff3131'/>
+                <Text style={styles.biggerTitle}>CONGRATS</Text>
+                <Ionicons name="medal-outline" size={24} color='#ff3131'/>
+            </View>
                 <Ionicons name="trophy-outline" size={40} color="#ff3131" alignItem></Ionicons>
                 <Text style={styles.text}>You have {vCount} vinyls in your collection</Text>
             </View>
             </View>
-            <View style={styles.centeredrow}>
-                <Ionicons name="pie-chart-outline" size={24} color="#ff3131" />   
+            <View style={styles.centeredrow}> 
                 <Text style={styles.biggerTitle}> CHARTS</Text>
+                <Ionicons name="pie-chart-outline" size={24} color="#ff3131" />  
             </View>
             <CategoryChart style={{backgroundColor: 'white'}}/>
             <FrequencyChart style={{backgroundColor: 'white'}}/>   
             <CollectionGrowthChart style={{backgroundColor: 'white'}}/>
             <View style={styles.centeredrow}>
-                <Ionicons name="briefcase-outline" size={24} color='#ff3131' />
                 <Text style={styles.biggerTitle}> OLDEST JAMS</Text>
+                <Ionicons name="briefcase-outline" size={24} color='#ff3131' />
         
             </View>
             <FlatList 
@@ -60,7 +61,7 @@ const StatsScreen=({})=>{
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={() => <View style={{ width: 10 }}/> }
-                ListEmptyComponent={<Text style={styles.text}>No vinyls found</Text>}
+                ListEmptyComponent={<Text style={styles.noVinyls}>No vinyls found</Text>}
                 contentContainerStyle={{ paddingHorizontal: 10 }}/>    
         </ScrollView>
     );
