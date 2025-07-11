@@ -9,6 +9,7 @@ import CategoryChart from './StatisticsCharts/CategoryChart.js';
 import { VinylContext } from './VinylManager.js';
 import FrequencyChart from './StatisticsCharts/FrequencyChart.js';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry.js';
+import CollectionGrowthChart from './StatisticsCharts/CollectionGrowth.js';
 
 const StatsScreen=({})=>{
     const {vCount, getOldestVinyls, vinyls, removeVinyl} = useContext(VinylContext);
@@ -28,26 +29,26 @@ const StatsScreen=({})=>{
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
-            <View style={styles.smalltitle}>
-                <Text style={styles.testo}>MY STATS</Text>
+            <View>
+                <Text style={styles.biggerTitle}>MY STATS</Text>
             </View>
             <View style={{ alignItems: 'center', marginVertical: 20 }}>
             <View style={styles.congratsbox}>
                 <Text style={styles.headerTitle}>CONGRATS</Text>
                 <Ionicons name="trophy-outline" size={40} color="#ff3131" alignItem></Ionicons>
-                <Text style={styles.testo}>You have {vCount} vinyls in your collection</Text>
+                <Text style={styles.text}>You have {vCount} vinyls in your collection</Text>
             </View>
             </View>
-            <View style={styles.riga}>
-                <Ionicons name='pie-chart-outline' size={24} color='#ff3131' />
-                <Text style={styles.testo}> CHARTS</Text>
-                
+            <View style={styles.centeredrow}>
+                <Ionicons name="pie-chart-outline" size={24} color="#ff3131" />   
+                <Text style={styles.biggerTitle}> CHARTS</Text>
             </View>
             <CategoryChart style={{backgroundColor: 'white'}}/>
-           <FrequencyChart style={{backgroundColor: 'white'}}/>   
-            <View style={styles.riga}>
+            <FrequencyChart style={{backgroundColor: 'white'}}/>   
+            <CollectionGrowthChart style={{backgroundColor: 'white'}}/>
+            <View style={styles.centeredrow}>
                 <Ionicons name="briefcase-outline" size={24} color='#ff3131' />
-                <Text style={styles.testo}> OLDEST JAMS</Text>
+                <Text style={styles.biggerTitle}> OLDEST JAMS</Text>
         
             </View>
             <FlatList 
@@ -59,7 +60,7 @@ const StatsScreen=({})=>{
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={() => <View style={{ width: 10 }}/> }
-                ListEmptyComponent={<Text style={styles.testo}>No vinyls found</Text>}
+                ListEmptyComponent={<Text style={styles.text}>No vinyls found</Text>}
                 contentContainerStyle={{ paddingHorizontal: 10 }}/>    
         </ScrollView>
     );

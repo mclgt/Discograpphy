@@ -3,6 +3,7 @@ import { VinylContext } from '../VinylManager.js';
 import React, { useContext } from 'react';
 import styles from '../styles/StatsScreenStyle.js';
 import { View, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const FrequencyChart= () =>{ 
     const {vinyls} = useContext(VinylContext);
@@ -32,12 +33,15 @@ const FrequencyChart= () =>{
     const isEmpty = vinyls.every(v => v.dateAdded < thisWeek.toISOString().split('T')[0]);
 
     if (!vinyls || vinyls.length === 0 || isEmpty ) {
-        return <Text style={styles.testo}>No data available!</Text>;
+        return <Text style={styles.text}>No data available!</Text>;
     }
 
     return (
         <View style = {{padding: 30, alignItems: 'center'}}>
-            <Text style={styles.testo}>ADDING FREQUENCY</Text>
+            <View style={styles.row}>
+                <Text style={styles.smallheader}>ADDING FREQUENCY</Text>
+                <Ionicons name='person-add-outline' size={24} color='#ff3131' />
+            </View>
             <LineChart
                 data= {lineData}
                 width={300} 
@@ -49,10 +53,8 @@ const FrequencyChart= () =>{
                     decimalPlaces: 2, 
                     color: (opacity = 1) => `rgba(255, 49, 49, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,  
-                    style: {
-                        borderRadius: 16
-                    }
                 }}
+                style= {styles.charts}
                 backgroundColor="transparent"
                 paddingLeft="15"
                 bezier

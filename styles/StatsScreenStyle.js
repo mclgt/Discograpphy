@@ -23,14 +23,9 @@ const styles = StyleSheet.create({
         color: '#ff3131',
         fontFamily: 'Monoton',
     },
-    titolominore:{
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        marginVertical: 10,
-    },
-    testo:{
+    smallheader:{
         fontSize: 18,
-        fontFamily: 'Fredoka',
+        fontFamily: 'FredokaMedium',
         color:'#333',
         textAlign:'center',
     },
@@ -60,18 +55,35 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
     },
-    riga:
+    row:
     {
         flexDirection: 'row',
         justifyContent:'flex-start',
         paddingHorizontal: 10,
         marginVertical: 10,
     },
-    smalltitle:{
+    centeredrow:{
+        flexDirection: 'row',
+        justifyContent:'center',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        alignItems:'center'
+    },
+    text:{
         fontSize: 18,
-        fontFamily: 'FredokaMedium',
+        fontFamily: 'Fredoka',
         color:'#333',
-        marginRight: 10,
+        textAlign:'center',
+    },
+    charts: {
+        borderRadius: 25, overflow: 'hidden'
+    },
+    biggerTitle:{
+        fontSize: 25,
+        fontFamily: 'FredokaSemiBold',
+        color:'#333',
+        textAlign:'center',
+        marginVertical: 10,
     }
 });
 export default styles;

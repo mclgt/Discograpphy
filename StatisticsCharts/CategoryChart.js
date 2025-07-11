@@ -4,6 +4,7 @@ import { CategoryContext } from '../CategoryManager.js';
 import React, { useContext } from 'react';
 import styles from '../styles/StatsScreenStyle.js';
 import { View, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const CategoryChart= () =>{ 
     const {categories} = useContext(CategoryContext);
@@ -20,12 +21,15 @@ const CategoryChart= () =>{
     const isEmpty = categories.every(category => category.vinylNumber === 0);
 
     if (!categories || categories.length === 0 || isEmpty ) {
-        return <Text style={styles.testo}>No data available!</Text>;
+        return <Text style={styles.text}>No data available!</Text>;
     }
 
     return (
         <View style = {{padding: 30, alignItems: 'center'}}>
-            <Text style={styles.testo}>CATEGORIES CHART</Text>
+            <View style={styles.row}>
+                <Text style={styles.smallheader}>CATEGORIES CHART</Text>
+                <Ionicons name='file-tray-full-outline' size={24} color='#ff3131' />
+            </View>
             <PieChart
                 data= {pieData}
                 width={300} 

@@ -29,6 +29,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 10,
     },
+    centeredrow:{
+        flexDirection: 'row',
+        justifyContent:'center',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        alignItems:'center'
+    },
     specedrow: {
         flexDirection: 'row',
         justifyContent:'space-between',
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
     minorTitle: {
         fontSize: 18,
         color:'#333',
-        fontFamily:'Fredoka',
+        fontFamily:'FredokaMedium',
     },
 
     container: {

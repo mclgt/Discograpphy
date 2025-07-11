@@ -11,7 +11,8 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     'Monoton': require('./assets/Fonts/Monoton-Regular.ttf'),
     'Fredoka': require('./assets/Fonts/Fredoka.ttf'),
-    'FredokaMedium': require('./assets/Fonts/FredokaMedium.ttf')
+    'FredokaMedium': require('./assets/Fonts/FredokaMedium.ttf'),
+    'FredokaSemiBold': require('./assets/Fonts/FredokaSemiBold.ttf'),
   });
 
   if (!fontsLoaded) {

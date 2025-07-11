@@ -115,8 +115,34 @@ export const VinylManager = ({children}) =>{
         }
     }
 
+    const theOldestAddDate = async () =>{
+        try{
+            const oldestAddDate = await db.getAllAsync(
+                'SELECT MIN(dateAdded) AS oldestDate FROM vinyls'
+            )
+            return oldestAddDate[0]?.oldestDate || null;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching oldest add date", "Please try again later.");
+            return null;
+        }
+    }
+
+    const theNewestAddDate = async () =>{
+        try{
+            const newestAddDate = await db.getAllAsync(
+                'SELECT MAX(dateAdded) AS newestDate FROM vinyls'
+            )
+            return newestAddDate[0]?.newestDate || null;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching newest add date", "Please try again later.");
+            return null;
+        }
+    }
+
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount, getOldestVinyls}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount, getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
             {children}
         </VinylContext.Provider>
     );
