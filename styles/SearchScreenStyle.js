@@ -71,5 +71,11 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
     },
+    noVinyls:{
+        fontSize: 18,
+        fontFamily: 'Fredoka',
+        padding: 20,
+        textAlign: 'center',
+    }
 });
 export default styles;
