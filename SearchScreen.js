@@ -14,7 +14,12 @@ const SearchScreen=({})=>{
     const [visible,setVisible]=useState(false);
     const [selectedYear, setSelectedYear]=useState(-1)
     const [selectedCondition, setCondition] = useState(-1)
-    const {vinylsSearched,searchVinyls,removeVinyl,vinylsYear}=useContext(VinylContext);
+    const {vinylsSearched,searchVinyls,removeVinyl,vinylsYear,isLoading}=useContext(VinylContext);
+    if (isLoading){
+            return(
+                <ActivityIndicator size ="large" color="#ff3131" style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
+            )
+        }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
@@ -50,7 +55,7 @@ const SearchScreen=({})=>{
                         >
                             <Picker.Item label="Year" value={-1}/>
                             {vinylsYear.map((year)=>(
-                                <Picker.Item label={year.year} value={year.year} key={year.id.toString()}/>
+                                <Picker.Item label={year.year.toString()} value={year.year} key={year.year.toString()}/>
                                 
                             ))}
                         </Picker>
