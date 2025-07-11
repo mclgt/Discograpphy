@@ -7,6 +7,8 @@ The app is fully in **English** and stores all data locally using **SQLite**, en
 <p align="center">
   <img src= "./assets/Icon.jpg" alt= "Icon" width = 300 height=300/>
 </p>
+
+
 ## 🚀 Features
 
 - 📀 **Vinyl Management**
