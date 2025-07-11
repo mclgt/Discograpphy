@@ -18,10 +18,10 @@ const AddScreen=({})=>{
     const {addVinyl,setVinyl}=useContext(VinylContext)
     const [title, setTitle] = useState("")
     const [artist, setArtist] = useState("")
-    const [selectedCategoryId, setSelectedCategoryId] = useState(null)
+    const [selectedCategory, setSelectedCategory] = useState(null)
     const [year, setYear] = useState("")
     const [label, setLabel] = useState("")
-    const [selectedCondition, setCondition] = useState("Perfect")
+    const [selectedCondition, setCondition] = useState(null)
     const [favourite, setFavourite] = useState(false)
     const [imageUrl, setImageUrl] = useState("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=")
     const validExtensionUrls = ['.jpg', 'jpeg', '.png','.gif', '.webp', 'bmp', 'svg'];
@@ -52,7 +52,7 @@ const AddScreen=({})=>{
             setArtist(receivedVinyl.artist); 
             setCondition(receivedVinyl.condition); 
             setFavourite((receivedVinyl.isFavourite==1)? true: false); 
-            setSelectedCategoryId(receivedVinyl.category_id);
+            setSelectedCategory(receivedVinyl.category_id);
             setImageUrl(receivedVinyl.image); 
             setLabel(receivedVinyl.label); 
             setTitle(receivedVinyl.title); 
@@ -94,7 +94,7 @@ const AddScreen=({})=>{
         setArtist(""); 
         setCondition("Perfect"); 
         setFavourite(false); 
-        setSelectedCategoryId(null);
+        setSelectedCategory(null);
         setImageUrl("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=");
         setLabel(""); 
         setYear("");
@@ -105,7 +105,7 @@ const AddScreen=({})=>{
             title:title, 
             artist:artist, 
             year:year, 
-            category_id: selectedCategoryId,
+            category_id: selectedCategory,
             image:imageUrl, 
             label:label, 
             condition:selectedCondition, 
@@ -123,7 +123,7 @@ const AddScreen=({})=>{
                 title:title, 
                 artist:artist, 
                 year:year, 
-                category_id: selectedCategoryId, 
+                category_id: selectedCategory, 
                 image:imageUrl, 
                 label:label, 
                 condition:selectedCondition, 
@@ -181,20 +181,16 @@ const AddScreen=({})=>{
                         <TextInput style={styles.input} placeholder="Enter artist" value={artist} onChangeText={setArtist} /> 
                         <Text style={styles.label}>Year</Text>
                         <TextInput style={styles.input} placeholder="Enter year" value={year} keyboardType= "numeric" onChangeText={setYear} /> 
-                        <Picker
-                            selectedValue={selectedCategoryId}
-                            onValueChange={(itemValue)=>setSelectedCategoryId(itemValue)}
-                        >
-                            <Picker.Item label="Seleziona una categoria..." value={null} enabled={false}/>
-                            {categories.map(cat=>(
+                        <Picker selectedValue={selectedCategory} onValueChange={(itemValue)=>setSelectedCategory(itemValue)}>
+                            <Picker.Item value={selectedCategory} label="Select a category" enabled={false}/>
+                                {categories.map(cat=>(
                                 <Picker.Item label={cat.genre} value={cat.id} key={cat.id}/>
-    
-                            ))}
+                                ))}
                         </Picker>
                         <Text style={styles.label}>Record label</Text>
                         <TextInput style={styles.input} placeholder= "Enter record label" value={label} onChangeText={setLabel}/> 
                         <Text style={styles.label}>Conditions</Text>
-                        <Picker selectedValue={selectedCondition} onValueChange={(itemValue)=> setCondition(itemValue)}>
+                        <Picker  selectedValue={selectedCondition} onValueChange={(itemValue)=> setCondition(itemValue)}>
                             <Picker.Item label="Perfect conditions" value="Perfect"/>
                             <Picker.Item label="Almost Perfect" value="Almost Perfect"/>
                             <Picker.Item label="Well cared for" value="Well cared"/>
