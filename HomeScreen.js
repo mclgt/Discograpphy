@@ -60,6 +60,25 @@ const HomeScreen=({})=>{
                     contentContainerStyle={{ paddingHorizontal: 10 }}
                 />
             </View>
+            <View style={styles.centeredrow}>
+                <Text style={styles.biggerTitle}>YOUR FAVOURITES</Text>
+                <Ionicons name='heart' size={24} color='#ff3131' />
+            </View>
+            <View>
+                <FlatList
+                    data={vinyls.filter(v => v.isFavourite === 1)}
+                    renderItem={({item})=>(
+                        <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre, isFavourite:item.isFavourite }}
+                            onDelete={() => removeVinyl(item.id)}/>
+                    )}
+                    ListEmptyComponent={<Text style={styles.noVinyls}>No favourites found</Text>}
+                    keyExtractor={(item) => item.id.toString()}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    ItemSeparatorComponent={() => <View style={{ width: 10 }}/>}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                />
+            </View>
         </ScrollView>
        
     );
