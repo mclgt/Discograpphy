@@ -14,7 +14,12 @@ const SearchScreen=({})=>{
     const [visible,setVisible]=useState(false);
     const [selectedYear, setSelectedYear]=useState(-1)
     const [selectedCondition, setCondition] = useState(-1)
-    const {vinylsSearched,searchVinyls,removeVinyl,vinylsYear}=useContext(VinylContext);
+    const {vinylsSearched,searchVinyls,removeVinyl,vinylsYear,isLoading}=useContext(VinylContext);
+    if (isLoading){
+            return(
+                <ActivityIndicator size ="large" color="#ff3131" style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
+            )
+        }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
@@ -49,8 +54,8 @@ const SearchScreen=({})=>{
                             onValueChange={(itemValue)=>{setSelectedYear(itemValue);setVisible(false)}}
                         >
                             <Picker.Item label="Year" value={-1}/>
-                            {vinylsYear.map((year)=>(
-                                <Picker.Item label={year.year} value={year.year} key={year.id.toString()}/>
+                            {vinylsYear.map((year,index)=>(
+                                <Picker.Item label={year.year.toString()} value={year.year} key={`${year.year.toString()}-${index}`}/>
                                 
                             ))}
                         </Picker>
@@ -59,7 +64,7 @@ const SearchScreen=({})=>{
                             onValueChange={(itemValue)=>{setSelectedGenre(itemValue);setVisible(false)}}
                         >
                             <Picker.Item label="Genre" value={-1}/>
-                            {categories.map(cat=>(
+                            {categories.map((cat,index) => (
                                 <Picker.Item label={cat.genre} value={cat.genre} key={cat.id}/>
                                 
                             ))}
@@ -79,7 +84,8 @@ const SearchScreen=({})=>{
                 <FlatList
                         data={vinylsSearched}
                         renderItem={({item})=>(
-                            <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre }} onDelete={() => removeVinyl(item.id)}/>
+                            <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, category_id:item.category_id }} 
+                                onDelete={() => removeVinyl(item.id)}/>
                             )}
                         ListEmptyComponent={<Text style={styles.noVinyls}>No vinyls found</Text>}
                         keyExtractor={(item) => item.id.toString()}

@@ -27,6 +27,7 @@ const AddScreen=({})=>{
     const validExtensionUrls = ['.jpg', 'jpeg', '.png','.gif', '.webp', 'bmp', 'svg'];
     const [editMode, setEditMode]= useState(false);
     const {categories}=useContext(CategoryContext);
+    console.log("Categorie:", categories);
     useEffect(()=>{
         if(receivedVinyl && !editMode){
             setArtist(receivedVinyl.artist); 
