@@ -9,7 +9,6 @@ export const VinylContext = createContext();
 export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [vinylsSearched, setVinylsSearched]=useState([]);
     const [vinylsYear,setVinylsYear]=useState([]);
     const {uploadCategories}=useContext(CategoryContext);
     const db = useSQLiteContext();
@@ -107,39 +106,43 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Error updating vinyl", "Please try again later.");
         }
     };
+
+
     const searchVinyls= async (string,year,condition,genre)=>{
         try{
-        const stringSearch = `%${string}%`
-        console.log(string,year,condition,genre);
-        let query = 'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE 1=1';
-        const params=[];
-        if (string.trim() != ""){
-            query += ' AND (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
-            params.push(stringSearch,stringSearch,stringSearch);
+            const stringSearch = `%${string}%`
+            console.log(string,year,condition,genre);
+            let query = 'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE 1=1';
+            const params=[];
+            if (string.trim() != ""){
+                query += ' AND (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
+                params.push(stringSearch,stringSearch,stringSearch);
+            }
+            if (year != -1){
+                query += ' AND vinyls.year=?';
+                params.push(parseInt(year));
+            }
+            if (condition != -1){
+                query += ' AND vinyls.condition=?';
+                params.push(condition);
+            }
+            if (genre != -1){
+                query += ' AND category.genre=?'
+                params.push(genre);
+            }        
+            const res = await db.getAllAsync(query,params);
+            return res;
         }
-        if (year != -1){
-            query += ' AND vinyls.year=?';
-            params.push(parseInt(year));
+        catch(error){
+            console.error(error);
+            return [];
         }
-        if (condition != -1){
-            query += ' AND vinyls.condition=?';
-            params.push(condition);
-        }
-        if (genre != -1){
-        query += ' AND category.genre=?'
-        params.push(genre);
-        }
-        
-        const res = await db.getAllAsync(query,params);
-        setVinylsSearched(res);
-    }
-    catch(error){
-        console.error(error);
-    }
         
     };
+
+
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls,vinylsSearched,searchVinyls,vinylsYear}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls,searchVinyls,vinylsYear}}>
             {children}
         </VinylContext.Provider>
     );

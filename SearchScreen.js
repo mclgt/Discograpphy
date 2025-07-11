@@ -1,12 +1,13 @@
 import { Picker } from '@react-native-picker/picker';
 import { ScrollView,StyleSheet, Text,TextInput, View, Button, FlatList, Switch, SafeAreaView,Image, SectionList} from 'react-native';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, use } from 'react';
 import styles from './styles/SearchScreenStyle.js';
 import { TouchableOpacity, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { VinylContext } from './VinylManager.js';
 import Vinyl from './Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
+
 const SearchScreen=({})=>{
     const {categories}=useContext(CategoryContext);
     const [selectedGenre, setSelectedGenre] = useState(-1)
@@ -14,12 +15,23 @@ const SearchScreen=({})=>{
     const [visible,setVisible]=useState(false);
     const [selectedYear, setSelectedYear]=useState(-1)
     const [selectedCondition, setCondition] = useState(-1)
-    const {vinylsSearched,searchVinyls,removeVinyl,vinylsYear,isLoading}=useContext(VinylContext);
+    const {searchVinyls,removeVinyl,vinylsYear,isLoading}=useContext(VinylContext);
+    const [vinylsSearched, setVinylsSearched] = useState([]);
+
     if (isLoading){
             return(
                 <ActivityIndicator size ="large" color="#ff3131" style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
             )
-        }
+    }
+
+    useEffect(()=>{
+        const uploadVinyls = async () =>{
+            const results = await searchVinyls(stringSearch,selectedYear,selectedCondition,selectedGenre);
+            setVinylsSearched(results);
+        }; 
+        uploadVinyls();
+    },[stringSearch,selectedYear,selectedCondition,selectedGenre]);
+
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
@@ -27,8 +39,10 @@ const SearchScreen=({})=>{
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
             <View style={styles.searchContainer}>
-                <TextInput style={styles.searchInput} placeholder="Search for vinyls..." value={stringSearch} onChangeText={setStringSearch} />
-                <TouchableOpacity style={styles.searchButton} onPress={()=>searchVinyls(stringSearch,selectedYear,selectedCondition,selectedGenre)}>
+                <TextInput style={styles.searchInput} placeholder="Search vinyls..." value={stringSearch} onChangeText={setStringSearch} />
+                <TouchableOpacity style={styles.searchButton} onPress={ async ()=>{
+                    const results = await searchVinyls(stringSearch,selectedYear,selectedCondition,selectedGenre);
+                    setVinylsSearched(results);}}>
                     <Ionicons name="search-outline" size={24} color="#ffff" />
                 </TouchableOpacity>
                 <View style={{position:'relative'}}>
@@ -85,8 +99,14 @@ const SearchScreen=({})=>{
                         data={vinylsSearched}
                         renderItem={({item})=>(
                             <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, category_id:item.category_id }} 
-                                onDelete={() => removeVinyl(item.id)}/>
-                            )}
+                                onDelete={
+                                    async () => {removeVinyl(item.id); 
+                                        const update = await searchVinyls(stringSearch,selectedYear,selectedCondition,selectedGenre);
+                                        setVinylsSearched(update)
+                                    }
+                                }
+                            />
+                     )}
                         ListEmptyComponent={<Text style={styles.noVinyls}>No vinyls found</Text>}
                         keyExtractor={(item) => item.id.toString()}
                         horizontal={true}
