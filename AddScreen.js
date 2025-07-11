@@ -8,7 +8,7 @@ import { useRoute } from '@react-navigation/native';
 import { VinylContext } from './VinylManager.js';
 import {Picker} from '@react-native-picker/picker';
 import { CategoryContext } from './CategoryManager.js';
-
+import * as ImagePicker from 'expo-image-picker';
 
 
 
@@ -27,6 +27,26 @@ const AddScreen=({})=>{
     const validExtensionUrls = ['.jpg', 'jpeg', '.png','.gif', '.webp', 'bmp', 'svg'];
     const [editMode, setEditMode]= useState(false);
     const {categories}=useContext(CategoryContext);
+
+    const pickImageFromGallery = async () => {
+        const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();  
+        if (permission.status !== 'granted'){
+            alert("Permission to access gallery is required!");
+            return; 
+        }   
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images, 
+            allowsEditing: true,
+            aspect: [3,3],
+            quality: 1,   
+        });
+
+        if (!result.canceled){
+            setImageUrl(result.assets[0].uri);
+        }
+    };
+
     useEffect(()=>{
         if(receivedVinyl && !editMode){
             setArtist(receivedVinyl.artist); 
@@ -50,7 +70,7 @@ const AddScreen=({})=>{
             alert("Anno non valido!")
             return false;
         }
-        if(!imageUrl.startsWith('https://')){
+        if(!(imageUrl.startsWith('https://') || imageUrl.startsWith('file://'))){
             alert("Inserisci un URL valido che inizi con https:// ")
             return false;
         }
@@ -184,6 +204,10 @@ const AddScreen=({})=>{
                         <Text style={styles.label}>Cover Image</Text>
                         <Text style={styles.subtext}>Paste the URL of the image you want:</Text>
                         <TextInput style={styles.input} value={imageUrl} keyboardType='url' onChangeText={setImageUrl}></TextInput>
+                        <TouchableOpacity style={styles.galleryButton} onPress={pickImageFromGallery}>
+                            <Text style={styles.modifyButtontext}>Add from gallery</Text>
+                        </TouchableOpacity>
+
                     </View>
                 </View>
             </ScrollView>

@@ -76,6 +76,16 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
     },
+    galleryButton: {
+        padding: 10,
+        backgroundColor: '#ff3131',
+        borderRadius: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+        alignItems: 'center',
+    },
     addButtontext: {
         color: '#fff',
         fontFamily: 'Fredoka',
