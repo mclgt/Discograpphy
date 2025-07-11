@@ -6,7 +6,6 @@ import styles from './styles/Style.js';
 import Vinyl from './Vinyl.js';
 
 
-
 const HomeScreen=({})=>{
     const {vinyls, removeVinyl,isLoading, uploadVinyls} = useContext(VinylContext);
     const recentVinyls = vinyls.slice(0,5);

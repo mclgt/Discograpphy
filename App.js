@@ -4,6 +4,7 @@ import AppNavigator from './Navigator';
 import VinylManager from './VinylManager';
 import { SQLiteProvider } from 'expo-sqlite';
 import CategoryManager from './CategoryManager';
+import {OrientationProvider } from './OrientationContext.js';  
 import styles from './styles/Style.js'
 
 
@@ -76,12 +77,13 @@ export default function App() {
     }
   }options={{useNewConnection: false}}
   >
-    
-    <CategoryManager >
-      <VinylManager>
-         <AppNavigator/>
-      </VinylManager>
-    </CategoryManager>
+    <OrientationProvider>
+      <CategoryManager >
+        <VinylManager>
+          <AppNavigator/>
+        </VinylManager>
+      </CategoryManager>
+    </OrientationProvider>
   </SQLiteProvider>
 
   );

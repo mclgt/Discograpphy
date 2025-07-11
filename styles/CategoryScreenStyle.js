@@ -93,6 +93,14 @@ const styles = StyleSheet.create({
         fontFamily: 'FredokaSemiBold',
         color:'#333',
         marginVertical: 10,
+    }, 
+    categoryContainer:{
+        marginBottom: 20,
+    },
+    categoryContainerLandscape:{
+        marginBottom:20, 
+        paddingRight: 50, 
+        paddingLeft:20
     }
 }); 
 export default styles;

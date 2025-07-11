@@ -8,7 +8,10 @@ import Vinyl from './Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
 import CategoryAdder from './CategoryAdder.js';
 import { VinylContext } from './VinylManager.js';
+import { OrientationContext } from './OrientationContext.js';
+
 const CategoryScreen=({})=>{
+    const orientation = useContext(OrientationContext);
     const [modalVisible, setModalVisible]=useState(false);
     const {categories,isLoading,uploadCategories,removeCategory}=useContext(CategoryContext);
     const {vinyls,removeVinyl}=useContext(VinylContext);
@@ -32,7 +35,7 @@ const CategoryScreen=({})=>{
                 </TouchableOpacity>
             </View>
             </View>
-            <View style={{marginBottom: 20}}>
+            <View style={orientation === 'portrait'? styles.categoryContainer : styles.categoryContainerLandscape}>
             <FlatList 
                 data={categories}
                 scrollEnabled={false}
