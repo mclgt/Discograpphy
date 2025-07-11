@@ -34,6 +34,7 @@ export const VinylManager = ({children}) =>{
             const results = await db.getAllAsync(
                `SELECT DISTINCT vinyls.year 
                 FROM vinyls
+                WHERE vinyls.year IS NOT NULL
                 ORDER BY vinyls.year;`
             );
             setVinylsYear(results); 
@@ -116,23 +117,34 @@ export const VinylManager = ({children}) =>{
         }
     };
     const searchVinyls= async (string,year,condition,genre)=>{
+        try{
         const stringSearch = `%${string}%`
-        let query = 'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
-        const params = [stringSearch,stringSearch,stringSearch];
-        if (year){
-            sql += 'AND year=?';
+        console.log(string,year,condition,genre);
+        let query = 'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE 1=1';
+        const params=[];
+        if (string == ""){
+            query += 'AND (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
+            params.push(stringSearch,stringSearch,stringSearch);
+        }
+        if (year != -1){
+            query += ' AND vinyls.year=?';
             params.push(year);
         }
-        if (condition){
-            sql += 'AND condition=?';
+        if (condition != -1){
+            query += ' AND vinyls.condition=?';
             params.push(condition);
         }
-        if (genre){
-           sql += 'AND category.genre=?'
-           params.push(genre);
+        if (genre != -1){
+        query += ' AND category.genre=?'
+        params.push(genre);
         }
+        
         const res = await db.runAsync(query,params);
         setVinylsSearched(res);
+    }
+    catch(error){
+        console.log(error);
+    }
         
     };
     return (

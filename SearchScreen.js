@@ -49,8 +49,8 @@ const SearchScreen=({})=>{
                             onValueChange={(itemValue)=>{setSelectedYear(itemValue);setVisible(false)}}
                         >
                             <Picker.Item label="Year" value={-1}/>
-                            {vinylsYear.map(year=>(
-                                <Picker.Item label={year.year} value={year.id} key={year.id}/>
+                            {vinylsYear.map((year)=>(
+                                <Picker.Item label={year.year} value={year.year} key={year.year.toString()}/>
                                 
                             ))}
                         </Picker>
@@ -64,7 +64,7 @@ const SearchScreen=({})=>{
                                 
                             ))}
                         </Picker>
-                        <Picker selectedValue={selectedCondition} onValueChange={(itemValue)=> setCondition(itemValue)}>
+                        <Picker selectedValue={selectedCondition} onValueChange={(itemValue)=>{ setCondition(itemValue);setVisible(false)}}>
                             <Picker.Item label="Condition" value={-1}/>
                             <Picker.Item label="Perfect conditions" value="Perfect"/>
                             <Picker.Item label="Almost Perfect" value="Almost Perfect"/>
