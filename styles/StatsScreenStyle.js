@@ -23,14 +23,9 @@ const styles = StyleSheet.create({
         color: '#ff3131',
         fontFamily: 'Monoton',
     },
-    titolominore:{
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        marginVertical: 10,
-    },
-    testo:{
+    smallheader:{
         fontSize: 18,
-        fontFamily: 'Fredoka',
+        fontFamily: 'FredokaMedium',
         color:'#333',
         textAlign:'center',
     },
@@ -48,24 +43,53 @@ const styles = StyleSheet.create({
     {
         flexDirection: 'column',
         alignItems:'center',
-        justifyContent:'center',
-        padding: 10,
+        justifyContent:'space-evenly',
+        padding: 5,
         width: 200,              
         height: 200,
         backgroundColor: '#fff',
         borderRadius: 10,
-        marginVertical: 10,
+        marginVertical: 5,
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
     },
-    riga:
+    row:
     {
         flexDirection: 'row',
         justifyContent:'flex-start',
         paddingHorizontal: 10,
         marginVertical: 10,
-    }
+    },
+    centeredrow:{
+        flexDirection: 'row',
+        justifyContent:'flex-start',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        alignItems:'center'
+    },
+    text:{
+        fontSize: 18,
+        fontFamily: 'Fredoka',
+        color:'#333',
+        textAlign:'center',
+    },
+    charts: {
+        borderRadius: 25, overflow: 'hidden'
+    },
+    biggerTitle:{
+        fontSize: 18,
+        fontFamily: 'FredokaSemiBold',
+        color:'#333',
+        textAlign:'center',
+        marginVertical: 10,
+    },
+    noVinyls:{
+        fontSize: 18,
+        fontFamily: 'Fredoka',
+        paddingLeft: 100,
+        textAlign:'center'
+    },
 });
 export default styles;

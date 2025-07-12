@@ -1,19 +1,25 @@
-import React, {createContext,useState,useEffect} from 'react'; 
+import React, {createContext,useState,useEffect, useContext} from 'react'; 
 import Vinyl from './Vinyl';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Alert } from 'react-native';
+import { CategoryContext } from './CategoryManager';
 
 export const VinylContext = createContext(); 
 
 export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
-    const [isLoading, setIsLoading] = useState(false); 
+    const [isLoading, setIsLoading] = useState(false);
+    const {uploadCategories}=useContext(CategoryContext);
+    const [vCount, setVCount] = useState(0);
     const db = useSQLiteContext();
 
     const uploadVinyls = async () =>{
         try{
             const results = await db.getAllAsync(
-                'SELECT * FROM vinyls ORDER BY id DESC'
+               `SELECT vinyls.*, category.genre 
+                FROM vinyls
+                LEFT JOIN category ON vinyls.category_id = category.id
+                ORDER BY vinyls.id DESC;`
             );
             setVinyls(results); 
         }catch(error){
@@ -34,11 +40,18 @@ export const VinylManager = ({children}) =>{
     const addVinyl = async (newVinyl) => {
        try{
             await db.runAsync(
-                'INSERT INTO vinyls (title, artist, label, year, genre, image, condition, isFavourite) VALUES (?, ?, ?, ?, ?, ?, ? ,?)',
-                [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.genre, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
+                'INSERT INTO vinyls (title, artist, label, year, category_id, image, condition, isFavourite) VALUES (?, ?, ?, ?, ?, ?, ? ,?)',
+                [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.category_id, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
             )
+            await db.runAsync(
+                'UPDATE category set  vinylNumber= vinylNumber+1 where id = ?',
+                [newVinyl.category_id]
+            )
+            await uploadCategories();
             Alert.alert("Vinyl added successfully!");
+            setVCount(vCount+1);
             uploadVinyls(); 
+            setVCount(vCount+1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error adding vinyl", "Please try again later.");
@@ -47,12 +60,23 @@ export const VinylManager = ({children}) =>{
 
     const removeVinyl = async (id) => {
        try{
+            const category = await db.getAllAsync(
+                'SELECT category_id FROM vinyls WHERE id = ?',
+                [id]
+            )
+            const categoryId=category[0].category_id;
             await db.runAsync(
                 'DELETE FROM vinyls WHERE id = ?',
                 [id]
             )
+            await db.runAsync(
+                'UPDATE category set  vinylNumber =  vinylNumber - 1 WHERE id = ?',
+                [categoryId]
+            )
             Alert.alert("Vinyl removed successfully!");
+            await uploadCategories();
             uploadVinyls(); 
+            setVCount(vCount-1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error removing vinyl", "Please try again later.");
@@ -62,9 +86,14 @@ export const VinylManager = ({children}) =>{
     const setVinyl = async (updatedVinyl) => {
         try{
             await db.runAsync(
-                'UPDATE vinyls SET title = ?, artist = ?, label = ?, year = ?, genre = ?, image = ?, condition = ?, isFavourite = ? WHERE id = ?',
-                [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.genre, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
+                'UPDATE vinyls SET title = ?, artist = ?, label = ?, year = ?, category_id = ?, image = ?, condition = ?, isFavourite = ? WHERE id = ?',
+                [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.category_id, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
             )
+            await db.runAsync(
+                'UPDATE category set  vinylNumber = vinylNumber+1 where id = ?',
+                [updatedVinyl.category_id]
+            )
+            await uploadCategories();
             Alert.alert("Vinyl updated successfully!");
             uploadVinyls(); 
         }catch (error){
@@ -73,8 +102,47 @@ export const VinylManager = ({children}) =>{
         }
     };
 
+    const getOldestVinyls = async () =>{
+        try{
+            const topOldest = await db.getAllAsync(
+                'SELECT * FROM vinyls WHERE year != "" AND year IS NOT NULL ORDER BY year ASC LIMIT 7'
+            )
+            return topOldest;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching oldest vinyls","Please try again later.");
+            return [];
+        }
+    }
+
+    const theOldestAddDate = async () =>{
+        try{
+            const oldestAddDate = await db.getAllAsync(
+                'SELECT MIN(dateAdded) AS oldestDate FROM vinyls'
+            )
+            return oldestAddDate[0]?.oldestDate || null;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching oldest add date", "Please try again later.");
+            return null;
+        }
+    }
+
+    const theNewestAddDate = async () =>{
+        try{
+            const newestAddDate = await db.getAllAsync(
+                'SELECT MAX(dateAdded) AS newestDate FROM vinyls'
+            )
+            return newestAddDate[0]?.newestDate || null;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching newest add date", "Please try again later.");
+            return null;
+        }
+    }
+
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount, getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
             {children}
         </VinylContext.Provider>
     );

@@ -6,7 +6,6 @@ import styles from './styles/Style.js';
 import Vinyl from './Vinyl.js';
 
 
-
 const HomeScreen=({})=>{
     const {vinyls, removeVinyl,isLoading, uploadVinyls} = useContext(VinylContext);
     const recentVinyls = vinyls.slice(0,5);
@@ -21,13 +20,34 @@ const HomeScreen=({})=>{
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
-            <View style={styles.row}>
-                <Text style={styles.minorTitle}>RECENTLY ADDED</Text>
+            <View style={styles.centeredrow}>
+                <Text style={styles.biggerTitle}>RECENTLY ADDED</Text>
                 <Ionicons name='musical-note-outline' size={24} color='#ff3131' />
             </View>
             <View>
                 <FlatList
                     data={recentVinyls}
+                    renderItem={({item})=>(
+                        <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre, isFavourite:item.isFavourite }}
+                            onDelete={() => removeVinyl(item.id)}/>
+                    )}
+                    ListEmptyComponent={
+                            <Text style={styles.noVinyls}>No vinyls found</Text>
+                    }
+                    keyExtractor={(item) => item.id.toString()}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    ItemSeparatorComponent={() => <View style={{ width: 10 }}/>}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                />
+            </View>
+            <View style={styles.centeredrow}>
+                <Text style={styles.biggerTitle}>YOUR COLLECTION</Text>
+                <Ionicons name='musical-notes-outline' size={24} color='#ff3131' />
+            </View>
+            <View>
+                <FlatList
+                    data={vinyls}
                     renderItem={({item})=>(
                         <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre, isFavourite:item.isFavourite }}
                             onDelete={() => removeVinyl(item.id)}/>
@@ -40,18 +60,18 @@ const HomeScreen=({})=>{
                     contentContainerStyle={{ paddingHorizontal: 10 }}
                 />
             </View>
-            <View style={styles.row}>
-                <Text style={styles.minorTitle}>YOUR COLLECTION</Text>
-                <Ionicons name='musical-notes-outline' size={24} color='#ff3131' />
+            <View style={styles.centeredrow}>
+                <Text style={styles.biggerTitle}>YOUR FAVOURITES</Text>
+                <Ionicons name='heart' size={24} color='#ff3131' />
             </View>
             <View>
                 <FlatList
-                    data={vinyls}
+                    data={vinyls.filter(v => v.isFavourite === 1)}
                     renderItem={({item})=>(
                         <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre, isFavourite:item.isFavourite }}
                             onDelete={() => removeVinyl(item.id)}/>
                     )}
-                    ListEmptyComponent={<Text style={styles.noVinyls}>No vinyls found</Text>}
+                    ListEmptyComponent={<Text style={styles.noVinyls}>No favourites found</Text>}
                     keyExtractor={(item) => item.id.toString()}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}

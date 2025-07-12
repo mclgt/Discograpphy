@@ -7,7 +7,8 @@ import styles from './styles/AddScreenStyle.js';
 import { useRoute } from '@react-navigation/native';
 import { VinylContext } from './VinylManager.js';
 import {Picker} from '@react-native-picker/picker';
-
+import { CategoryContext } from './CategoryManager.js';
+import * as ImagePicker from 'expo-image-picker';
 
 
 
@@ -17,7 +18,7 @@ const AddScreen=({})=>{
     const {addVinyl,setVinyl}=useContext(VinylContext)
     const [title, setTitle] = useState("")
     const [artist, setArtist] = useState("")
-    const [genre, setGenre] = useState("")
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null)
     const [year, setYear] = useState("")
     const [label, setLabel] = useState("")
     const [selectedCondition, setCondition] = useState("Perfect")
@@ -25,13 +26,33 @@ const AddScreen=({})=>{
     const [imageUrl, setImageUrl] = useState("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=")
     const validExtensionUrls = ['.jpg', 'jpeg', '.png','.gif', '.webp', 'bmp', 'svg'];
     const [editMode, setEditMode]= useState(false);
+    const {categories}=useContext(CategoryContext);
+
+    const pickImageFromGallery = async () => {
+        const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();  
+        if (permission.status !== 'granted'){
+            alert("Permission to access gallery is required!");
+            return; 
+        }   
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images, 
+            allowsEditing: true,
+            aspect: [3,3],
+            quality: 1,   
+        });
+
+        if (!result.canceled){
+            setImageUrl(result.assets[0].uri);
+        }
+    };
 
     useEffect(()=>{
         if(receivedVinyl && !editMode){
             setArtist(receivedVinyl.artist); 
             setCondition(receivedVinyl.condition); 
             setFavourite((receivedVinyl.isFavourite==1)? true: false); 
-            setGenre(receivedVinyl.genre); 
+            setSelectedCategoryId(receivedVinyl.category_id);
             setImageUrl(receivedVinyl.image); 
             setLabel(receivedVinyl.label); 
             setTitle(receivedVinyl.title); 
@@ -49,7 +70,7 @@ const AddScreen=({})=>{
             alert("Anno non valido!")
             return false;
         }
-        if(!imageUrl.startsWith('https://')){
+        if(!(imageUrl.startsWith('https://') || imageUrl.startsWith('file://'))){
             alert("Inserisci un URL valido che inizi con https:// ")
             return false;
         }
@@ -73,7 +94,7 @@ const AddScreen=({})=>{
         setArtist(""); 
         setCondition("Perfect"); 
         setFavourite(false); 
-        setGenre(""); 
+        setSelectedCategoryId(null);
         setImageUrl("https://media.istockphoto.com/id/481475560/it/vettoriale/modello-record-per-vinile.jpg?s=612x612&w=0&k=20&c=s6bMw-pX22GwGQzKbniKWyqT-h-evD3Ok4bIxUzWJKk=");
         setLabel(""); 
         setYear("");
@@ -84,11 +105,12 @@ const AddScreen=({})=>{
             title:title, 
             artist:artist, 
             year:year, 
-            genre:genre, 
+            category_id: selectedCategoryId,
             image:imageUrl, 
             label:label, 
             condition:selectedCondition, 
             isFavourite:favourite? 1:0
+            
         };
         addVinyl(newVinyl);
         resetFields();
@@ -101,7 +123,7 @@ const AddScreen=({})=>{
                 title:title, 
                 artist:artist, 
                 year:year, 
-                genre:genre, 
+                category_id: selectedCategoryId, 
                 image:imageUrl, 
                 label:label, 
                 condition:selectedCondition, 
@@ -130,7 +152,7 @@ const AddScreen=({})=>{
                 <View style={styles.addScreenBody}>
                     <View style={styles.spacedrow}>
                         <View style={styles.header2}>
-                            <Text style={styles.titolo}>{title}</Text>
+                            <Text style={styles.title}>{title}</Text>
                         <TouchableOpacity onPress={() => setFavourite(!favourite)}>
                                 <Ionicons name={favourite? "heart":"heart-outline"} size={24} color="#ff3131" />
                         </TouchableOpacity>
@@ -159,8 +181,16 @@ const AddScreen=({})=>{
                         <TextInput style={styles.input} placeholder="Enter artist" value={artist} onChangeText={setArtist} /> 
                         <Text style={styles.label}>Year</Text>
                         <TextInput style={styles.input} placeholder="Enter year" value={year} keyboardType= "numeric" onChangeText={setYear} /> 
-                        <Text style={styles.label}>Genre</Text>
-                        <TextInput style={styles.input} placeholder="Enter genre" value={genre} onChangeText={setGenre} />
+                        <Picker
+                            selectedValue={selectedCategoryId}
+                            onValueChange={(itemValue)=>setSelectedCategoryId(itemValue)}
+                        >
+                            <Picker.Item label="Seleziona una categoria..." value={null} enabled={false}/>
+                            {categories.map(cat=>(
+                                <Picker.Item label={cat.genre} value={cat.id} key={cat.id}/>
+    
+                            ))}
+                        </Picker>
                         <Text style={styles.label}>Record label</Text>
                         <TextInput style={styles.input} placeholder= "Enter record label" value={label} onChangeText={setLabel}/> 
                         <Text style={styles.label}>Conditions</Text>
@@ -174,6 +204,10 @@ const AddScreen=({})=>{
                         <Text style={styles.label}>Cover Image</Text>
                         <Text style={styles.subtext}>Paste the URL of the image you want:</Text>
                         <TextInput style={styles.input} value={imageUrl} keyboardType='url' onChangeText={setImageUrl}></TextInput>
+                        <TouchableOpacity style={styles.galleryButton} onPress={pickImageFromGallery}>
+                            <Text style={styles.modifyButtontext}>Add from gallery</Text>
+                        </TouchableOpacity>
+
                     </View>
                 </View>
             </ScrollView>
