@@ -42,8 +42,10 @@ const CategoryScreen=({})=>{
                 renderItem={({item})=>(
                 <View>
                     <View style={styles.buttons}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={styles.text}>{item.genre}</Text>
-                    <Text style={styles.text}>{item.vinylNumber}</Text>
+                    <Text style={[styles.text , { marginLeft: 8 ,color: '#ff3131'}]}>{item.vinylNumber}</Text>
+                    </View>
                     <TouchableOpacity style={styles.bottone} onPress={()=>removeCategory(item.id)} >
                         <Ionicons name="trash-outline" size={28} color="#ff3131" />
                     </TouchableOpacity>

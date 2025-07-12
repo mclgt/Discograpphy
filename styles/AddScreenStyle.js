@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap:8,
     },
-    titolo: {
+    title: {
         fontSize: 24,
         fontFamily: 'Fredoka',
         color: '#333',
