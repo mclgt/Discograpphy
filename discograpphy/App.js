@@ -66,7 +66,7 @@ export default function App() {
           if (newgenre && newgenre.trim() !== "") {
             console.log("Inserting genre:", newgenre);
             await db.runAsync(
-                'INSERT INTO category (genre) VALUES (?)', [newgenre.trim()]
+                'INSERT OR IGNORE INTO category (genre) VALUES (?)', [newgenre.trim()]
             )
           }
         }
