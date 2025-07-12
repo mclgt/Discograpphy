@@ -22,6 +22,7 @@ export const VinylManager = ({children}) =>{
                 ORDER BY vinyls.id DESC;`
             );
             setVinyls(results); 
+            setVCount(results.length);
         }catch(error){
             console.error("Database error",error);
         }finally{
