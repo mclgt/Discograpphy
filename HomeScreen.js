@@ -20,7 +20,7 @@ const HomeScreen=({})=>{
     useEffect(() =>{
         if(vinyls.length > 0){
             const index = Math.floor(Math.random() * vinyls.length) || 1;
-            const randomVinyls = getRandomVinyls(vinyls, 5);
+            const randomVinyls = getRandomVinyls(vinyls, index);
             setSuggested(randomVinyls);
         }
     },[vinyls]);
