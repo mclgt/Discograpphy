@@ -28,7 +28,7 @@ function Vinyl({ vinyl, onDelete }) {
                             <Ionicons name="ellipsis-horizontal-circle-outline" size={32} color="grey" />
                          </TouchableOpacity>
                          <Ionicons name={vinyl.isFavourite == 1 ? "heart":"heart-outline"} size={32} color="grey" />
-                          <TouchableOpacity style={styles.bottone} onPress={onDelete}>
+                          <TouchableOpacity style={styles.bottone} onPress={() => onDelete(vinyl.id)}>
                             <Ionicons name="trash-outline" size={32} color="#ff3131" />
                          </TouchableOpacity>
                        </View>

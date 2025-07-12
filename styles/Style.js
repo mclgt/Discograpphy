@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     minorTitle: {
         fontSize: 18,
         color:'#333',
-        fontFamily:'Fredoka',
+        fontFamily:'FredokaMedium',
     },
 
     container: {
@@ -96,21 +96,23 @@ const styles = StyleSheet.create({
     noVinyls:{
         fontSize: 18,
         fontFamily: 'Fredoka',
-        padding: 20,
-        textAlign: 'center',
+        paddingLeft: 100,
+        textAlign:'center'
     },
-     portrait: {
-    flex: 1,
-    backgroundColor: '#add8e6',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  landscape: {
-    flex: 1,
-    backgroundColor: '#90ee90',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
+    biggerTitle:{
+        fontSize: 18,
+        fontFamily: 'FredokaSemiBold',
+        color:'#333',
+        marginVertical: 10,
+    },    
+    centeredrow:{
+        flexDirection: 'row',
+        justifyContent:'flex-start',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        alignItems:'center',
+    }
 
 }); 
 export default styles;

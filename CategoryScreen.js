@@ -8,7 +8,10 @@ import Vinyl from './Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
 import CategoryAdder from './CategoryAdder.js';
 import { VinylContext } from './VinylManager.js';
+import { OrientationContext } from './OrientationContext.js';
+
 const CategoryScreen=({})=>{
+    const orientation = useContext(OrientationContext);
     const [modalVisible, setModalVisible]=useState(false);
     const {categories,isLoading,uploadCategories,removeCategory}=useContext(CategoryContext);
     const {vinyls,removeVinyl}=useContext(VinylContext);
@@ -24,23 +27,25 @@ const CategoryScreen=({})=>{
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
-            <View style={styles.titolominore}>
-                <Text style={styles.testo}>CATEGORIES</Text>
+            <View style={styles.row}>
+                <Text style={styles.biggerTitle}>CATEGORIES</Text>
             <View style={styles.addButton}>
                 <TouchableOpacity style={styles.addButtontext} onPress={() => setModalVisible(true)}>
-                        <Text style={styles.addButtontext}>Add Categories</Text>
+                        <Text style={styles.addButtontext}>Add Category</Text>
                 </TouchableOpacity>
             </View>
             </View>
-            <View style={{marginBottom: 20}}>
+            <View style={orientation === 'portrait'? styles.categoryContainer : styles.categoryContainerLandscape}>
             <FlatList 
                 data={categories}
                 scrollEnabled={false}
                 renderItem={({item})=>(
                 <View>
                     <View style={styles.buttons}>
-                    <Text style={styles.testo}>{item.genre}</Text>
-                    <Text style={styles.testo}>{item.vinylNumber}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={styles.text}>{item.genre}</Text>
+                    <Text style={[styles.text , { marginLeft: 8 ,color: '#ff3131'}]}>{item.vinylNumber}</Text>
+                    </View>
                     <TouchableOpacity style={styles.bottone} onPress={()=>removeCategory(item.id)} >
                         <Ionicons name="trash-outline" size={28} color="#ff3131" />
                     </TouchableOpacity>

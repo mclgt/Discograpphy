@@ -3,6 +3,7 @@
     "name": "Discograpphy",
     "slug": "Discograpphy",
     "version": "1.0.0",
+    "orientation": "default",
     "icon": "./assets/Icon.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,

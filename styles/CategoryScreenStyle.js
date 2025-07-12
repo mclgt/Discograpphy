@@ -59,16 +59,16 @@ const styles = StyleSheet.create({
         color: '#ff3131',
         fontFamily: 'Monoton',
     },
-    titolominore:{
+    row:{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems:'center',
         paddingHorizontal: 16,
         marginVertical: 10,
     },
-    testo:{
-        fontSize: 18,
-        fontFamily: 'Fredoka',
+    text:{
+        fontSize: 16,
+        fontFamily: 'FredokaMedium',
         color:'#333',
         textAlign:'left',
         justifyContent: 'space-between',
@@ -93,12 +93,19 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Fredoka',
     },
-    riga:
-    {
-        flexDirection: 'row',
-        justifyContent:'flex-start',
-        paddingHorizontal: 10,
+    biggerTitle:{
+        fontSize: 18,
+        fontFamily: 'FredokaSemiBold',
+        color:'#333',
         marginVertical: 10,
+    }, 
+    categoryContainer:{
+        marginBottom: 20,
+    },
+    categoryContainerLandscape:{
+        marginBottom:20, 
+        paddingRight: 50, 
+        paddingLeft:20
     }
 }); 
 export default styles;

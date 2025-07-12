@@ -11,6 +11,7 @@ export const VinylManager = ({children}) =>{
     const [isLoading, setIsLoading] = useState(false);
     const [vinylsYear,setVinylsYear]=useState([]);
     const {uploadCategories}=useContext(CategoryContext);
+    const [vCount, setVCount] = useState(0);
     const db = useSQLiteContext();
 
     const uploadVinyls = async () =>{
@@ -68,7 +69,9 @@ export const VinylManager = ({children}) =>{
             uploadCategories();
             uploadVinylsYear();
             Alert.alert("Vinyl added successfully!");
+            setVCount(vCount+1);
             uploadVinyls(); 
+            setVCount(vCount+1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error adding vinyl", "Please try again later.");
@@ -85,6 +88,7 @@ export const VinylManager = ({children}) =>{
             uploadCategories();
             uploadVinylsYear();
             uploadVinyls(); 
+            setVCount(vCount-1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error removing vinyl", "Please try again later.");
@@ -106,6 +110,7 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Error updating vinyl", "Please try again later.");
         }
     };
+
 
 
     const searchVinyls= async (string,year,condition,genre)=>{
@@ -139,10 +144,48 @@ export const VinylManager = ({children}) =>{
         }
         
     };
+  
+    const getOldestVinyls = async () =>{
+        try{
+            const topOldest = await db.getAllAsync(
+                'SELECT * FROM vinyls WHERE year != "" AND year IS NOT NULL ORDER BY year ASC LIMIT 7'
+            )
+            return topOldest;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching oldest vinyls","Please try again later.");
+            return [];
+        }
+    }
 
+    const theOldestAddDate = async () =>{
+        try{
+            const oldestAddDate = await db.getAllAsync(
+                'SELECT MIN(dateAdded) AS oldestDate FROM vinyls'
+            )
+            return oldestAddDate[0]?.oldestDate || null;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching oldest add date", "Please try again later.");
+            return null;
+        }
+    }
+
+    const theNewestAddDate = async () =>{
+        try{
+            const newestAddDate = await db.getAllAsync(
+                'SELECT MAX(dateAdded) AS newestDate FROM vinyls'
+            )
+            return newestAddDate[0]?.newestDate || null;
+        }catch(error){
+            console.error(error); 
+            Alert.alert("Error fetching newest add date", "Please try again later.");
+            return null;
+        }
+    }
 
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls,searchVinyls,vinylsYear}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount,searchVinyls getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
             {children}
         </VinylContext.Provider>
     );

@@ -2,6 +2,7 @@ import {createContext, useState, useEffect} from 'react';
 import { Modal, View, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import styles from './styles/CategoryScreenStyle.js';
 import {useSQLiteContext} from 'expo-sqlite';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry.js';
 
 export const CategoryContext = createContext();
 
@@ -9,6 +10,7 @@ const CategoryManager = ({children}) =>{
     const [categories, setCategories]=useState([]);
     const [isLoading,setLoading]=useState(false);
     const db = useSQLiteContext();
+
     const uploadCategories = async () =>{
         try{
             setLoading(true);
@@ -22,13 +24,15 @@ const CategoryManager = ({children}) =>{
             setLoading(false);
         }
     }
+
     useEffect(() =>{
             if(db){
                 uploadCategories()
             } else if (!db){
                 console.warn("Database not initialized");
             }
-        },[db])
+    },[db])
+
     const addCategory = async (newCategory) => {
             if (!newCategory || newCategory.trim() === '') {
                 Alert.alert("Errore", "Il genere non può essere vuoto.");
@@ -45,7 +49,8 @@ const CategoryManager = ({children}) =>{
                 console.error(error); 
                 Alert.alert("Error adding category", "Please try again later.");
             }
-        };
+    };
+
     const removeCategory = async (id) =>{
         try{
             await db.runAsync(
@@ -60,6 +65,7 @@ const CategoryManager = ({children}) =>{
             Alert.alert("Error removing category", "Please try again later."); 
         }
     }
+
      return (
     <CategoryContext.Provider value={{categories, addCategory,setCategories, isLoading, uploadCategories, removeCategory}}>
       {children}

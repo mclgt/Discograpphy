@@ -25,6 +25,7 @@ export default function AppNavigator() {
             else if(route.name === 'Categories') iconName = 'file-tray-stacked-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
+          tabBarActiveTintColor: '#ff3131',
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
