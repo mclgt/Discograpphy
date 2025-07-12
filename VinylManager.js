@@ -71,7 +71,6 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Vinyl added successfully!");
             setVCount(vCount+1);
             uploadVinyls(); 
-            setVCount(vCount+1);
         }catch (error){
             console.error(error); 
             Alert.alert("Error adding vinyl", "Please try again later.");
@@ -184,8 +183,21 @@ export const VinylManager = ({children}) =>{
         }
     }
 
+    const setFavourite = async (id, isFavourite) => {
+        try{
+           await db.runAsync(
+                'UPDATE vinyls SET isFavourite = ? WHERE id = ?',
+                [isFavourite ? 1 : 0, id]
+            )
+            uploadVinyls();
+        }catch(error){
+            console.error("Error updating favourite status", error);
+            Alert.alert("Error updating favourite status", "Please try again later.");
+        }
+    }
+
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vinylsYear, vCount,searchVinyls, getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vinylsYear, vCount,searchVinyls, getOldestVinyls, theOldestAddDate, theNewestAddDate, setFavourite}}>
             {children}
         </VinylContext.Provider>
     );
