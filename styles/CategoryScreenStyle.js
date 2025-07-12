@@ -15,6 +15,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',              
     alignItems: 'center',                
   },
+   portrait: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  landscape: {
+    flex: 1,
+    backgroundColor: '#90ee90',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   modalContent: {
     backgroundColor: '#fff',
     padding: 20,
