@@ -29,7 +29,8 @@ export const VinylManager = ({children}) =>{
             setIsLoading(false);
         }
     }
-     const uploadVinylsYear = async () =>{
+
+    const uploadVinylsYear = async () =>{
         try{
             const results = await db.getAllAsync(
                `SELECT DISTINCT vinyls.year 
@@ -68,9 +69,8 @@ export const VinylManager = ({children}) =>{
             )
             uploadCategories();
             uploadVinylsYear();
-            Alert.alert("Vinyl added successfully!");
-            setVCount(vCount+1);
             uploadVinyls(); 
+            Alert.alert("Vinyl added successfully!");
             setVCount(vCount+1);
         }catch (error){
             console.error(error); 
@@ -110,8 +110,6 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Error updating vinyl", "Please try again later.");
         }
     };
-
-
 
     const searchVinyls= async (string,year,condition,genre)=>{
         try{
@@ -184,8 +182,21 @@ export const VinylManager = ({children}) =>{
         }
     }
 
+    const setFavourite = async (id, isFavourite) => {
+        try{
+           await db.runAsync(
+                'UPDATE vinyls SET isFavourite = ? WHERE id = ?',
+                [isFavourite ? 1 : 0, id]
+            )
+            uploadVinyls();
+        }catch(error){
+            console.error("Error updating favourite status", error);
+            Alert.alert("Error updating favourite status", "Please try again later.");
+        }
+    }
+
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vinylsYear, vCount,searchVinyls, getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vinylsYear, vCount,searchVinyls, getOldestVinyls, theOldestAddDate, theNewestAddDate, setFavourite}}>
             {children}
         </VinylContext.Provider>
     );
