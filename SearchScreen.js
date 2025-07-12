@@ -89,7 +89,7 @@ const SearchScreen=({})=>{
                             <Picker.Item label="Almost Perfect" value="Almost Perfect"/>
                             <Picker.Item label="Well cared for" value="Well cared"/>
                             <Picker.Item label="Used" value="Used"/>
-                            <Picker.Item label="Barely playable" value="Barely playable"/>
+                            <Picker.Item label="Not Playable" value="Not Playable"/>
                         </Picker>
                         </View>
                     </Modal>
