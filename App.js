@@ -58,8 +58,6 @@ export default function App() {
               );`
 
             );
-         
-         
         const categories = [
           "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
           ];
@@ -93,7 +91,7 @@ export default function App() {
       } catch (error) {
         console.error("SQLite Init Error:", error);
       }
-  }options={{useNewConnection: false}}
+  }} options={{useNewConnection: false}}
   >
     <OrientationProvider>
       <CategoryManager >
