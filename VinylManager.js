@@ -185,7 +185,7 @@ export const VinylManager = ({children}) =>{
     }
 
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount,searchVinyls getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount,searchVinyls, getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
             {children}
         </VinylContext.Provider>
     );
