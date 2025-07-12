@@ -1,6 +1,6 @@
 import {createContext, useState, useEffect} from 'react';
 import { Modal, View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import styles from './styles/CategoryScreenStyle.js';
+import styles from '../../styles/CategoryScreenStyle.js';
 import {useSQLiteContext} from 'expo-sqlite';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry.js';
 

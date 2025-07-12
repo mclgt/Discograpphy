@@ -1,12 +1,12 @@
 import { Picker } from '@react-native-picker/picker';
 import { ScrollView,StyleSheet, Text,TextInput, View, Button, FlatList, Switch, SafeAreaView,Image, SectionList} from 'react-native';
 import { useState, useEffect, useContext, use } from 'react';
-import styles from './styles/SearchScreenStyle.js';
+import styles from '../../styles/SearchScreenStyle.js';
 import { TouchableOpacity, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { VinylContext } from './VinylManager.js';
-import Vinyl from './Vinyl.js';
-import { CategoryContext } from './CategoryManager.js';
+import { VinylContext } from '../vinyl/VinylManager.js';
+import Vinyl from '../vinyl/Vinyl.js';
+import { CategoryContext } from '../category/CategoryManager.js';
 
 const SearchScreen=({})=>{
     const {categories}=useContext(CategoryContext);
@@ -35,7 +35,7 @@ const SearchScreen=({})=>{
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
-                <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
+                <Image source={require('../../assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
             <View style={styles.searchContainer}>

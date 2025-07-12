@@ -2,11 +2,11 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; 
-import HomeScreen from './HomeScreen';
-import AddScreen from './AddScreen';
-import SearchScreen from './SearchScreen';
-import StatsScreen from './StatsScreen';
-import CategoryScreen from './CategoryScreen';
+import HomeScreen from './screen/HomeScreen';
+import AddScreen from './screen/AddScreen';
+import SearchScreen from './screen/SearchScreen';
+import StatsScreen from './screen/StatsScreen';
+import CategoryScreen from './category/CategoryScreen';
 
 const Tab = createBottomTabNavigator();
 

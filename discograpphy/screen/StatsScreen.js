@@ -3,13 +3,13 @@ import { ScrollView,StyleSheet, Text, View, Button, FlatList, Switch, SafeAreaVi
 import { useState, useEffect, useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Vinyl from './Vinyl.js';
-import styles from './styles/StatsScreenStyle.js';
-import CategoryChart from './StatisticsCharts/CategoryChart.js';
-import { VinylContext } from './VinylManager.js';
-import FrequencyChart from './StatisticsCharts/FrequencyChart.js';
+import Vinyl from '../vinyl/Vinyl.js';
+import styles from '../../styles/StatsScreenStyle.js';
+import CategoryChart from '../StatisticsCharts/CategoryChart.js';
+import { VinylContext } from '../vinyl/VinylManager.js';
+import FrequencyChart from '../StatisticsCharts/FrequencyChart.js';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry.js';
-import CollectionGrowthChart from './StatisticsCharts/CollectionGrowth.js';
+import CollectionGrowthChart from '../StatisticsCharts/CollectionGrowth.js';
 
 const StatsScreen=({})=>{
     const {vCount, getOldestVinyls, vinyls, removeVinyl} = useContext(VinylContext);
@@ -27,7 +27,7 @@ const StatsScreen=({})=>{
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
-                <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
+                <Image source={require('../../assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
             <View style={{ alignItems: 'center', marginVertical: 20 }}>

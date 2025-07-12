@@ -1,9 +1,9 @@
-import { VinylContext } from './VinylManager.js';
+import { VinylContext } from '../vinyl/VinylManager.js';
 import {ActivityIndicator, ScrollView,StyleSheet, Text, View, Button, FlatList, Switch, SafeAreaView,Image} from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import styles from './styles/Style.js';
-import Vinyl from './Vinyl.js';
+import styles from '../../styles/Style.js';
+import Vinyl from '../vinyl/Vinyl.js';
 
 
 const HomeScreen=({})=>{
@@ -34,7 +34,7 @@ const HomeScreen=({})=>{
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
-                <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
+                <Image source={require('../../assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
             <View style={styles.centeredrow}>
