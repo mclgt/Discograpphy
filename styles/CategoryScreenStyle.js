@@ -15,6 +15,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',              
     alignItems: 'center',                
   },
+   portrait: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  landscape: {
+    flex: 1,
+    backgroundColor: '#90ee90',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   modalContent: {
     backgroundColor: '#fff',
     padding: 20,
@@ -55,7 +67,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     text:{
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'FredokaMedium',
         color:'#333',
         textAlign:'left',
@@ -81,15 +93,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Fredoka',
     },
-    riga:
-    {
-        flexDirection: 'row',
-        justifyContent:'flex-start',
-        paddingHorizontal: 10,
-        marginVertical: 10,
-    },
     biggerTitle:{
-        fontSize: 25,
+        fontSize: 18,
         fontFamily: 'FredokaSemiBold',
         color:'#333',
         marginVertical: 10,

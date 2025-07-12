@@ -97,20 +97,21 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'Fredoka',
         paddingLeft: 100,
-        textAlign: 'center',
+        textAlign:'center'
     },
+
     biggerTitle:{
-        fontSize: 25,
+        fontSize: 18,
         fontFamily: 'FredokaSemiBold',
         color:'#333',
         marginVertical: 10,
     },    
     centeredrow:{
         flexDirection: 'row',
-        justifyContent:'center',
+        justifyContent:'flex-start',
         paddingHorizontal: 10,
         marginVertical: 10,
-        alignItems:'center'
+        alignItems:'center',
     }
 
 }); 

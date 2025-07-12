@@ -70,6 +70,12 @@ const AddScreen=({})=>{
             alert("Anno non valido!")
             return false;
         }
+
+        if (selectedCategoryId == null){
+            alert("Genere obbligatorio!")
+            return false;
+        }
+       
         if(!(imageUrl.startsWith('https://') || imageUrl.startsWith('file://'))){
             alert("Inserisci un URL valido che inizi con https:// ")
             return false;
@@ -152,7 +158,7 @@ const AddScreen=({})=>{
                 <View style={styles.addScreenBody}>
                     <View style={styles.spacedrow}>
                         <View style={styles.header2}>
-                            <Text style={styles.titolo}>{title}</Text>
+                            <Text style={styles.title}>{title}</Text>
                         <TouchableOpacity onPress={() => setFavourite(!favourite)}>
                                 <Ionicons name={favourite? "heart":"heart-outline"} size={24} color="#ff3131" />
                         </TouchableOpacity>

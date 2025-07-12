@@ -9,6 +9,7 @@ export const VinylContext = createContext();
 export const VinylManager = ({children}) =>{
     const [vinyls, setVinyls] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [vinylsYear,setVinylsYear]=useState([]);
     const {uploadCategories}=useContext(CategoryContext);
     const [vCount, setVCount] = useState(0);
     const db = useSQLiteContext();
@@ -28,26 +29,45 @@ export const VinylManager = ({children}) =>{
             setIsLoading(false);
         }
     }
+     const uploadVinylsYear = async () =>{
+        try{
+            const results = await db.getAllAsync(
+               `SELECT DISTINCT vinyls.year 
+                FROM vinyls
+                WHERE vinyls.year IS NOT NULL
+                ORDER BY vinyls.year;`
+            );
+            setVinylsYear(results); 
+        }catch(error){
+            console.error("Database error",error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
 
     useEffect(() =>{
         if(db){
             uploadVinyls()
+            uploadVinylsYear()
         } else if (!db){
             console.warn("Database not initialized");
         }
     },[db])
 
     const addVinyl = async (newVinyl) => {
+        console.log("Aggiungo vinile:", newVinyl);
+
        try{
             await db.runAsync(
                 'INSERT INTO vinyls (title, artist, label, year, category_id, image, condition, isFavourite) VALUES (?, ?, ?, ?, ?, ?, ? ,?)',
                 [newVinyl.title, newVinyl.artist, newVinyl.label, parseInt(newVinyl.year), newVinyl.category_id, newVinyl.image, newVinyl.condition, newVinyl.isFavourite]
             )
             await db.runAsync(
-                'UPDATE category set  vinylNumber= vinylNumber+1 where id = ?',
+                'UPDATE category set  vinylNumber = vinylNumber + 1 where id = ?',
                 [newVinyl.category_id]
             )
-            await uploadCategories();
+            uploadCategories();
+            uploadVinylsYear();
             Alert.alert("Vinyl added successfully!");
             setVCount(vCount+1);
             uploadVinyls(); 
@@ -60,21 +80,13 @@ export const VinylManager = ({children}) =>{
 
     const removeVinyl = async (id) => {
        try{
-            const category = await db.getAllAsync(
-                'SELECT category_id FROM vinyls WHERE id = ?',
-                [id]
-            )
-            const categoryId=category[0].category_id;
             await db.runAsync(
                 'DELETE FROM vinyls WHERE id = ?',
                 [id]
             )
-            await db.runAsync(
-                'UPDATE category set  vinylNumber =  vinylNumber - 1 WHERE id = ?',
-                [categoryId]
-            )
             Alert.alert("Vinyl removed successfully!");
-            await uploadCategories();
+            uploadCategories();
+            uploadVinylsYear();
             uploadVinyls(); 
             setVCount(vCount-1);
         }catch (error){
@@ -89,11 +101,8 @@ export const VinylManager = ({children}) =>{
                 'UPDATE vinyls SET title = ?, artist = ?, label = ?, year = ?, category_id = ?, image = ?, condition = ?, isFavourite = ? WHERE id = ?',
                 [updatedVinyl.title, updatedVinyl.artist, updatedVinyl.label, parseInt(updatedVinyl.year), updatedVinyl.category_id, updatedVinyl.image, updatedVinyl.condition, updatedVinyl.isFavourite, updatedVinyl.id]
             )
-            await db.runAsync(
-                'UPDATE category set  vinylNumber = vinylNumber+1 where id = ?',
-                [updatedVinyl.category_id]
-            )
-            await uploadCategories();
+            uploadCategories();
+            uploadVinylsYear();
             Alert.alert("Vinyl updated successfully!");
             uploadVinyls(); 
         }catch (error){
@@ -102,6 +111,40 @@ export const VinylManager = ({children}) =>{
         }
     };
 
+
+
+    const searchVinyls= async (string,year,condition,genre)=>{
+        try{
+            const stringSearch = `%${string}%`
+            console.log(string,year,condition,genre);
+            let query = 'SELECT vinyls.* FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE 1=1';
+            const params=[];
+            if (string.trim() != ""){
+                query += ' AND (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
+                params.push(stringSearch,stringSearch,stringSearch);
+            }
+            if (year != -1){
+                query += ' AND vinyls.year=?';
+                params.push(parseInt(year));
+            }
+            if (condition != -1){
+                query += ' AND vinyls.condition=?';
+                params.push(condition);
+            }
+            if (genre != -1){
+                query += ' AND category.genre=?'
+                params.push(genre);
+            }        
+            const res = await db.getAllAsync(query,params);
+            return res;
+        }
+        catch(error){
+            console.error(error);
+            return [];
+        }
+        
+    };
+  
     const getOldestVinyls = async () =>{
         try{
             const topOldest = await db.getAllAsync(
@@ -142,10 +185,11 @@ export const VinylManager = ({children}) =>{
     }
 
     return (
-        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vCount, getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
+        <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vinylsYear, vCount,searchVinyls, getOldestVinyls, theOldestAddDate, theNewestAddDate}}>
             {children}
         </VinylContext.Provider>
     );
+
 }
 
 export default VinylManager;
