@@ -56,7 +56,7 @@ const AddScreen=({})=>{
             setImageUrl(receivedVinyl.image); 
             setLabel(receivedVinyl.label); 
             setTitle(receivedVinyl.title); 
-            setYear(receivedVinyl.year); 
+            setYear(String(receivedVinyl.year)); 
             setEditMode(true);
         }
     },[receivedVinyl])
