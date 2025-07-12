@@ -117,7 +117,7 @@ export const VinylManager = ({children}) =>{
         try{
             const stringSearch = `%${string}%`
             console.log(string,year,condition,genre);
-            let query = 'SELECT * FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE 1=1';
+            let query = 'SELECT vinyls.* FROM vinyls LEFT JOIN category ON vinyls.category_id=category.id WHERE 1=1';
             const params=[];
             if (string.trim() != ""){
                 query += ' AND (vinyls.title LIKE ? OR vinyls.artist LIKE ? OR vinyls.label LIKE ?)';
