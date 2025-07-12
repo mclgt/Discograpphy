@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppNavigator from './Navigator';
 import VinylManager from './VinylManager';
@@ -56,13 +56,14 @@ export default function App() {
                   genre TEXT NOT NULL UNIQUE,
                   vinylNumber INTEGER DEFAULT 0
               );`
-          );
-          const tableInfo = await db.getAllAsync("PRAGMA table_info(category);");
-          console.log("📊 Schema category:", tableInfo);
-          const categories = [
+
+            );
+         
+         
+        const categories = [
           "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
           ];
-        console.log("Inserting categories:", categories);
+       
         for (const newgenre of categories){
           if (newgenre && newgenre.trim() !== "") {
             console.log("Inserting genre:", newgenre);
@@ -71,10 +72,27 @@ export default function App() {
             )
           }
         }
+        await db.execAsync(
+          `CREATE TRIGGER IF NOT EXISTS uploadNumVinyls
+          AFTER UPDATE OF category_id ON vinyls
+          FOR EACH ROW
+          WHEN OLD.category_id IS NOT NULL AND OLD.category_id<>NEW.category_id
+          BEGIN
+              UPDATE category set vinylNumber = vinylNumber+1 where id = NEW.category_id;
+              UPDATE category set vinylNumber = vinylNumber-1 where id = OLD.category_id;
+          END;`
+        )
+        await db.execAsync(
+          `CREATE TRIGGER IF NOT EXISTS updateCategory
+          BEFORE DELETE ON vinyls
+          FOR EACH ROW
+          BEGIN
+              UPDATE category set vinylNumber = vinylNumber-1 where id = OLD.category_id;
+          END;`
+        )
       } catch (error) {
         console.error("SQLite Init Error:", error);
       }
-    }
   }options={{useNewConnection: false}}
   >
     <OrientationProvider>
@@ -85,6 +103,7 @@ export default function App() {
       </CategoryManager>
     </OrientationProvider>
   </SQLiteProvider>
+
 
   );
 }

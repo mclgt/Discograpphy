@@ -22,7 +22,7 @@ const CategoryScreen=({})=>{
             )
     }
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
+        <ScrollView style={{backgroundColor: '#f1f1f1'}}>
             <View style={styles.header}>
                 <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>

@@ -121,5 +121,19 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         backgroundColor: '#f1f1f1',
     },
+  portrait: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  landscape: {
+    flex: 1,
+    backgroundColor: '#90ee90',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection:'column',
+  },
 });
 export default styles;
