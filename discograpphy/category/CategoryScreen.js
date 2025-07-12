@@ -3,12 +3,12 @@ import { ScrollView,StyleSheet, Text, View, Button, FlatList, Switch, SafeAreaVi
 import {useState, useEffect, useContext} from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import styles from './styles/CategoryScreenStyle.js';
-import Vinyl from './Vinyl.js';
+import styles from '../../styles/CategoryScreenStyle.js';
+import Vinyl from '../vinyl/Vinyl.js';
 import { CategoryContext } from './CategoryManager.js';
 import CategoryAdder from './CategoryAdder.js';
-import { VinylContext } from './VinylManager.js';
-import { OrientationContext } from './OrientationContext.js';
+import { VinylContext } from '../vinyl/VinylManager.js';
+import { OrientationContext } from '../orientation/OrientationContext.js';
 
 const CategoryScreen=({})=>{
     const orientation = useContext(OrientationContext);
@@ -24,7 +24,7 @@ const CategoryScreen=({})=>{
     return (
         <ScrollView style={{backgroundColor: '#f1f1f1'}}>
             <View style={styles.header}>
-                <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
+                <Image source={require('../../assets/IconNobg.png')} style={styles.logo} />
                 <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
             </View>
             <View style={styles.row}>

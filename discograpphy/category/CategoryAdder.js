@@ -1,6 +1,6 @@
 import { useContext, useState} from 'react';
 import { Modal, View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import styles from './styles/CategoryScreenStyle.js';
+import styles from '../../styles/CategoryScreenStyle.js';
 import { CategoryContext } from './CategoryManager.js';
 
 

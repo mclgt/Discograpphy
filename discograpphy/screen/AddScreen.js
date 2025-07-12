@@ -3,11 +3,11 @@ import { Alert,ScrollView,StyleSheet, Text , TextInput, View, Button, FlatList, 
 import { useState, useEffect, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
-import styles from './styles/AddScreenStyle.js';
+import styles from '../../styles/AddScreenStyle.js';
 import { useRoute } from '@react-navigation/native';
-import { VinylContext } from './VinylManager.js';
+import { VinylContext } from '../vinyl/VinylManager.js';
 import {Picker} from '@react-native-picker/picker';
-import { CategoryContext } from './CategoryManager.js';
+import { CategoryContext } from '../category/CategoryManager.js';
 import * as ImagePicker from 'expo-image-picker';
 
 
@@ -56,28 +56,28 @@ const AddScreen=({})=>{
             setImageUrl(receivedVinyl.image); 
             setLabel(receivedVinyl.label); 
             setTitle(receivedVinyl.title); 
-            setYear(receivedVinyl.year); 
+            setYear(String(receivedVinyl.year)); 
             setEditMode(true);
         }
     },[receivedVinyl])
 
     const validation = () =>{
         if(!title.trim()){
-            alert("Titolo obbligatorio!"); 
+            alert("Title must be defined!"); 
             return false;
         }
         if (parseInt(year) > new Date().getFullYear() || parseInt(year) < 1000){
-            alert("Anno non valido!")
+            alert("Release date is not valid !")
             return false;
         }
 
-        if (selectedCategory == null){
-            alert("Genere obbligatorio!")
+        if (selectedCategoryId == null){
+            alert("Genre must be defined!")
             return false;
         }
        
         if(!(imageUrl.startsWith('https://') || imageUrl.startsWith('file://'))){
-            alert("Inserisci un URL valido che inizi con https:// ")
+            alert("Insert a valid URL, it must start with https:// ")
             return false;
         }
         let valid = false; 
@@ -88,7 +88,7 @@ const AddScreen=({})=>{
             }
         }
         if (valid==false){
-            alert("Inserisci un URL valido che contenga .png, .jpeg etc.. ")
+            alert("Insert a valid URL, it must contain .png, .jpeg etc.. ")
             return false;
         }
         return true;
@@ -152,7 +152,7 @@ const AddScreen=({})=>{
         <KeyboardAvoidingView style={{flex:1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
             <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }} keyboardShouldPersistTaps='handled'>
                 <View style={styles.header}>
-                    <Image source={require('./assets/IconNobg.png')} style={styles.logo} />
+                    <Image source={require('../../assets/IconNobg.png')} style={styles.logo} />
                     <Text style={styles.headerTitle}>DISCOGR<Text style={styles.red}>APP</Text>HY</Text>
                 </View>
                 <View style={styles.addScreenBody}>
@@ -185,11 +185,14 @@ const AddScreen=({})=>{
                         <TextInput style={styles.input} placeholder="Enter title" value={title} onChangeText={setTitle} /> 
                         <Text style={styles.label}>Artist</Text>
                         <TextInput style={styles.input} placeholder="Enter artist" value={artist} onChangeText={setArtist} /> 
-                        <Text style={styles.label}>Year</Text>
+                        <Text style={styles.label}>Release Year</Text>
                         <TextInput style={styles.input} placeholder="Enter year" value={year} keyboardType= "numeric" onChangeText={setYear} /> 
-                        <Picker selectedValue={selectedCategory} onValueChange={(itemValue)=>setSelectedCategory(itemValue)}>
-                            <Picker.Item value={selectedCategory} label="Select a category" enabled={false}/>
-                                {categories.map(cat=>(
+                        <Picker
+                            selectedValue={selectedCategoryId}
+                            onValueChange={(itemValue)=>setSelectedCategoryId(itemValue)}
+                        >
+                            <Picker.Item label="Choose a category..." value={null} enabled={false}/>
+                            {categories.map(cat=>(
                                 <Picker.Item label={cat.genre} value={cat.id} key={cat.id}/>
                                 ))}
                         </Picker>

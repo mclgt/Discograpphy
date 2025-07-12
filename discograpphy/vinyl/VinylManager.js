@@ -1,8 +1,7 @@
 import React, {createContext,useState,useEffect, useContext} from 'react'; 
-import Vinyl from './Vinyl';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Alert } from 'react-native';
-import { CategoryContext } from './CategoryManager';
+import { CategoryContext } from '../category/CategoryManager';
 
 export const VinylContext = createContext(); 
 
@@ -29,7 +28,8 @@ export const VinylManager = ({children}) =>{
             setIsLoading(false);
         }
     }
-     const uploadVinylsYear = async () =>{
+
+    const uploadVinylsYear = async () =>{
         try{
             const results = await db.getAllAsync(
                `SELECT DISTINCT vinyls.year 
@@ -68,9 +68,9 @@ export const VinylManager = ({children}) =>{
             )
             uploadCategories();
             uploadVinylsYear();
+            uploadVinyls(); 
             Alert.alert("Vinyl added successfully!");
             setVCount(vCount+1);
-            uploadVinyls(); 
         }catch (error){
             console.error(error); 
             Alert.alert("Error adding vinyl", "Please try again later.");
@@ -109,8 +109,6 @@ export const VinylManager = ({children}) =>{
             Alert.alert("Error updating vinyl", "Please try again later.");
         }
     };
-
-
 
     const searchVinyls= async (string,year,condition,genre)=>{
         try{
@@ -193,8 +191,8 @@ export const VinylManager = ({children}) =>{
         }catch(error){
             console.error("Error updating favourite status", error);
             Alert.alert("Error updating favourite status", "Please try again later.");
-        }
-    }
+        }
+    }
 
     return (
         <VinylContext.Provider value={{vinyls, addVinyl,removeVinyl, setVinyl, isLoading, uploadVinyls, vinylsYear, vCount,searchVinyls, getOldestVinyls, theOldestAddDate, theNewestAddDate, setFavourite}}>

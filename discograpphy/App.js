@@ -1,19 +1,19 @@
 import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppNavigator from './Navigator';
-import VinylManager from './VinylManager';
+import VinylManager from './vinyl/VinylManager.js';
 import { SQLiteProvider } from 'expo-sqlite';
-import CategoryManager from './CategoryManager';
-import {OrientationProvider } from './OrientationContext.js';  
-import styles from './styles/Style.js'
+import CategoryManager from './category/CategoryManager.js';
+import {OrientationProvider } from './orientation/OrientationContext.js';  
+import styles from '../styles/Style.js'
 
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    'Monoton': require('./assets/Fonts/Monoton-Regular.ttf'),
-    'Fredoka': require('./assets/Fonts/Fredoka.ttf'),
-    'FredokaMedium': require('./assets/Fonts/FredokaMedium.ttf'),
-    'FredokaSemiBold': require('./assets/Fonts/FredokaSemiBold.ttf'),
+    'Monoton': require('../assets/Fonts/Monoton-Regular.ttf'),
+    'Fredoka': require('../assets/Fonts/Fredoka.ttf'),
+    'FredokaMedium': require('../assets/Fonts/FredokaMedium.ttf'),
+    'FredokaSemiBold': require('../assets/Fonts/FredokaSemiBold.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -59,14 +59,14 @@ export default function App() {
 
             );
         const categories = [
-          "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELETTRONICA","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
+          "JAZZ","HIP HOP","ROCK","COUNTRY","POP","BLACK METAL","DISCO MUSIC","ELECTRONIC","FOLK MUSIC","FUNK","BLUES","HARD ROCK"
           ];
        
         for (const newgenre of categories){
           if (newgenre && newgenre.trim() !== "") {
             console.log("Inserting genre:", newgenre);
             await db.runAsync(
-                'INSERT INTO category (genre) VALUES (?)', [newgenre.trim()]
+                'INSERT OR IGNORE INTO category (genre) VALUES (?)', [newgenre.trim()]
             )
           }
         }
