@@ -30,7 +30,6 @@ export default function App() {
       onInit={async (db) => {
         try{
           await db.execAsync( 'PRAGMA journal_mode= WAL;');
-          await db.execAsync('DROP TABLE IF EXISTS vinyls;');
           await db.execAsync(
             `CREATE TABLE IF NOT EXISTS vinyls (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,9 +47,6 @@ export default function App() {
 
           `);
           await db.execAsync(
-              `DROP TABLE IF EXISTS category;`
-          );
-          await db.execAsync(
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   genre TEXT NOT NULL UNIQUE,
@@ -66,7 +62,7 @@ export default function App() {
           if (newgenre && newgenre.trim() !== "") {
             console.log("Inserting genre:", newgenre);
             await db.runAsync(
-                'INSERT INTO category (genre) VALUES (?)', [newgenre.trim()]
+                'INSERT OR IGNORE INTO category (genre) VALUES (?)', [newgenre.trim()]
             )
           }
         }

@@ -67,7 +67,7 @@ const HomeScreen=({})=>{
                     data={suggested}
                     renderItem={({item})=>(
                         <Vinyl vinyl={{id:item.id, title:item.title, artist: item.artist, image: item.image, year: item.year, label: item.label, condition:item.condition, genre: item.genre, isFavourite:item.isFavourite }}
-                            onDelete={() => {removeVinyl(item.id); setSuggested(prev => prev.filter(v => v.id !== id));}}/>
+                            onDelete={() => {removeVinyl(item.id); setSuggested(prev => prev.filter(v => v.id !== item.id));}}/>
                     )}
                     ListEmptyComponent={<Text style={styles.noVinyls}>No favourites found</Text>}
                     keyExtractor={(item) => item.id.toString()}
