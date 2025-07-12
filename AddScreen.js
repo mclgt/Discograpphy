@@ -152,7 +152,7 @@ const AddScreen=({})=>{
                 <View style={styles.addScreenBody}>
                     <View style={styles.spacedrow}>
                         <View style={styles.header2}>
-                            <Text style={styles.titolo}>{title}</Text>
+                            <Text style={styles.title}>{title}</Text>
                         <TouchableOpacity onPress={() => setFavourite(!favourite)}>
                                 <Ionicons name={favourite? "heart":"heart-outline"} size={24} color="#ff3131" />
                         </TouchableOpacity>

@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     text:{
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'FredokaMedium',
         color:'#333',
         textAlign:'left',
@@ -81,15 +81,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Fredoka',
     },
-    riga:
-    {
-        flexDirection: 'row',
-        justifyContent:'flex-start',
-        paddingHorizontal: 10,
-        marginVertical: 10,
-    },
     biggerTitle:{
-        fontSize: 25,
+        fontSize: 18,
         fontFamily: 'FredokaSemiBold',
         color:'#333',
         marginVertical: 10,

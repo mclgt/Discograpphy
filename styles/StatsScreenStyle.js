@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     centeredrow:{
         flexDirection: 'row',
-        justifyContent:'center',
+        justifyContent:'flex-start',
         paddingHorizontal: 10,
         marginVertical: 10,
         alignItems:'center'
@@ -79,11 +79,17 @@ const styles = StyleSheet.create({
         borderRadius: 25, overflow: 'hidden'
     },
     biggerTitle:{
-        fontSize: 25,
+        fontSize: 18,
         fontFamily: 'FredokaSemiBold',
         color:'#333',
         textAlign:'center',
         marginVertical: 10,
-    }
+    },
+    noVinyls:{
+        fontSize: 18,
+        fontFamily: 'Fredoka',
+        paddingLeft: 100,
+        textAlign:'center'
+    },
 });
 export default styles;
