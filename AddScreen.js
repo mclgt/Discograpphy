@@ -71,7 +71,7 @@ const AddScreen=({})=>{
             return false;
         }
 
-        if (selectedCategoryId == null){
+        if (selectedCategory == null){
             alert("Genere obbligatorio!")
             return false;
         }
@@ -201,7 +201,7 @@ const AddScreen=({})=>{
                             <Picker.Item label="Almost Perfect" value="Almost Perfect"/>
                             <Picker.Item label="Well cared for" value="Well cared"/>
                             <Picker.Item label="Used" value="Used"/>
-                            <Picker.Item label="Barely playable" value="Barely playable"/>
+                            <Picker.Item label="Barely playable" value="Not Playable"/>
                         </Picker>
                         <Text style={styles.label}>Cover Image</Text>
                         <Text style={styles.subtext}>Paste the URL of the image you want:</Text>
