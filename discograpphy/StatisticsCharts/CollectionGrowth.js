@@ -1,7 +1,7 @@
 import { BarChart } from  'react-native-chart-kit';
-import { VinylContext } from '../VinylManager.js';
+import { VinylContext } from '../vinyl/VinylManager.js';
 import React, { useContext, useState, useEffect } from 'react';
-import styles from '../styles/StatsScreenStyle.js';
+import styles from '../../styles/StatsScreenStyle.js';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles/Style.js';
+import styles from '../../styles/Style.js';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
@@ -23,7 +23,7 @@ function Vinyl({ vinyl, onDelete }) {
             <View style={styles.info}>
                 <Text style={styles.title}>{vinyl.title}</Text>
                 <Text style={styles.description}>Artist: {vinyl.artist}</Text>
-                <Text style={styles.description}>Year: {vinyl.year}</Text>
+                <Text style={styles.description}>Release Year: {vinyl.year}</Text>
                 <Text style={styles.description}>Condition: {vinyl.condition}</Text>
                 <View style={styles.actions}>
                        <View style={styles.specedrow}>

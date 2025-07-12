@@ -2,7 +2,7 @@ import React, {createContext,useState,useEffect, useContext} from 'react';
 import Vinyl from './Vinyl';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Alert } from 'react-native';
-import { CategoryContext } from './CategoryManager';
+import { CategoryContext } from '../category/CategoryManager';
 
 export const VinylContext = createContext(); 
 

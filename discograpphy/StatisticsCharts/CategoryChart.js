@@ -1,8 +1,8 @@
-import { VinylContext } from '../VinylManager.js';
+import { VinylContext } from '../vinyl/VinylManager.js';
 import { PieChart, LineChart } from  'react-native-chart-kit';
-import { CategoryContext } from '../CategoryManager.js';
+import { CategoryContext } from '../category/CategoryManager.js';
 import React, { useContext } from 'react';
-import styles from '../styles/StatsScreenStyle.js';
+import styles from '../../styles/StatsScreenStyle.js';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
