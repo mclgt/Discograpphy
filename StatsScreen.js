@@ -23,6 +23,7 @@ const StatsScreen=({})=>{
 
             uploadOldest();
         }, [vinyls]);
+        
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
             <View style={styles.header}>
