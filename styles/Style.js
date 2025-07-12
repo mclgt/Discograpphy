@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
         paddingLeft: 100,
         textAlign:'center'
     },
+
     biggerTitle:{
         fontSize: 18,
         fontFamily: 'FredokaSemiBold',

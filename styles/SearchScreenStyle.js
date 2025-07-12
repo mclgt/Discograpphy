@@ -14,6 +14,18 @@ const styles = StyleSheet.create({
         height: 80,
         marginRight: 10,
     },
+     portrait: {
+    flex: 1,
+    backgroundColor: '#add8e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  landscape: {
+    flex: 1,
+    backgroundColor: '#90ee90',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
     headerTitle: {
         fontSize: 20,
         fontFamily: 'Monoton',
@@ -59,5 +71,11 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 5,
     },
+    noVinyls:{
+        fontSize: 18,
+        fontFamily: 'Fredoka',
+        padding: 20,
+        textAlign: 'center',
+    }
 });
 export default styles;

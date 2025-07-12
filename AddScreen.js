@@ -70,6 +70,12 @@ const AddScreen=({})=>{
             alert("Anno non valido!")
             return false;
         }
+
+        if (selectedCategoryId == null){
+            alert("Genere obbligatorio!")
+            return false;
+        }
+       
         if(!(imageUrl.startsWith('https://') || imageUrl.startsWith('file://'))){
             alert("Inserisci un URL valido che inizi con https:// ")
             return false;
