@@ -165,18 +165,20 @@ const AddScreen=({})=>{
                         </View>
                     </View>
                     <View style={styles.buttons}>
-                        <TouchableOpacity style={styles.modifyButton} 
+                        <TouchableOpacity style={[styles.modifyButton,{ opacity: editMode ? 1 : 0.5 }]} 
                             onPress={() =>{
                                 if(validation()){
                                     Modify();
-                            }}}>
+                            }}}
+                            disabled={!editMode}>
                             <Text style={styles.modifyButtontext}>Modify</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.addButton}
+                        <TouchableOpacity style={[styles.addButton,{ opacity: editMode ? 0.5 : 1 }]}
                                 onPress={()=>{
                                 if(validation()){
                                     Add();
-                            }}}>
+                            }}}
+                            disabled={editMode}>
                             <Text style={styles.addButtontext}>Add Vinyl</Text>
                         </TouchableOpacity>
                     </View>
