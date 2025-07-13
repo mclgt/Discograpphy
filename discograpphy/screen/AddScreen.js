@@ -71,7 +71,7 @@ const AddScreen=({})=>{
             return false;
         }
 
-        if (selectedCategoryId == null){
+        if (selectedCategory == null){
             alert("Genre must be defined!")
             return false;
         }
@@ -165,18 +165,20 @@ const AddScreen=({})=>{
                         </View>
                     </View>
                     <View style={styles.buttons}>
-                        <TouchableOpacity style={styles.modifyButton} 
+                        <TouchableOpacity style={[styles.modifyButton,{ opacity: editMode ? 1 : 0.5 }]} 
                             onPress={() =>{
                                 if(validation()){
                                     Modify();
-                            }}}>
+                            }}}
+                            disabled={!editMode}>
                             <Text style={styles.modifyButtontext}>Modify</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.addButton}
+                        <TouchableOpacity style={[styles.addButton, { opacity: !editMode ? 1 : 0.5 }]}
                                 onPress={()=>{
                                 if(validation()){
                                     Add();
-                            }}}>
+                            }}}
+                            disabled={editMode}>
                             <Text style={styles.addButtontext}>Add Vinyl</Text>
                         </TouchableOpacity>
                     </View>
@@ -188,8 +190,8 @@ const AddScreen=({})=>{
                         <Text style={styles.label}>Release Year</Text>
                         <TextInput style={styles.input} placeholder="Enter year" value={year} keyboardType= "numeric" onChangeText={setYear} /> 
                         <Picker
-                            selectedValue={selectedCategoryId}
-                            onValueChange={(itemValue)=>setSelectedCategoryId(itemValue)}
+                            selectedValue={selectedCategory}
+                            onValueChange={(itemValue)=>setSelectedCategory(itemValue)}
                         >
                             <Picker.Item label="Choose a category..." value={null} enabled={false}/>
                             {categories.map(cat=>(

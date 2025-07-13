@@ -30,7 +30,6 @@ export default function App() {
       onInit={async (db) => {
         try{
           await db.execAsync( 'PRAGMA journal_mode= WAL;');
-          await db.execAsync('DROP TABLE IF EXISTS vinyls;');
           await db.execAsync(
             `CREATE TABLE IF NOT EXISTS vinyls (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,9 +46,6 @@ export default function App() {
               );
 
           `);
-          await db.execAsync(
-              `DROP TABLE IF EXISTS category;`
-          );
           await db.execAsync(
               `CREATE TABLE IF NOT EXISTS category (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,

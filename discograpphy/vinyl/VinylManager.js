@@ -1,7 +1,7 @@
 import React, {createContext,useState,useEffect, useContext} from 'react'; 
 import { useSQLiteContext } from 'expo-sqlite';
 import { Alert } from 'react-native';
-import { CategoryContext } from '../category/CategoryManager';
+import { CategoryContext } from '../category/CategoryManager.js';
 
 export const VinylContext = createContext(); 
 
@@ -22,6 +22,7 @@ export const VinylManager = ({children}) =>{
                 ORDER BY vinyls.id DESC;`
             );
             setVinyls(results); 
+            setVCount(results.length); 
         }catch(error){
             console.error("Database error",error);
         }finally{
